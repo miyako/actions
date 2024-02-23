@@ -1,4 +1,22 @@
-# get-tool
+# Bump
+
+Increment the version in `package.json` at the root of the current repository.
+
+* runner: `ubuntu-latest`
+* trigger: `workflow_call` only
+* inputs: `mode`: patch, minor, major
+* outputs: `version`: bumped version
+   
+# Create Release
+
+Create a new release for the current repository.
+
+* runner: `ubuntu-latest`
+* trigger: `workflow_call` only
+* inputs: `version`: release name, tag name
+* outputs: `upload_url`: the url to upload assets 
+
+# Get Tool
 
 Cross-platfrom workflow to download `tool4d` from 4D.com.
 
