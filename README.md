@@ -1,2 +1,3 @@
-# actions
-Public repository of 4D related GitHub actions
+# get-tool
+
+An Action to download `tool4d` from public releases.
