@@ -36,7 +36,7 @@ runs:
       run: |
         chcp 65001 #set code page to utf-8
         echo ("platform=windows") >> $env:GITHUB_ENV
-        echo ("TOOL4D_URL="+$env:TOOL4D_UR) >> $env:GITHUB_ENV
+        echo ("TOOL4D_URL="+$env:TOOL4D_URL) >> $env:GITHUB_ENV
       shell: pwsh  
       env:
         TOOL4D_URL: https://resources-download.4d.com/release/
