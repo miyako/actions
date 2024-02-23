@@ -1,1 +1,33 @@
-
+name: Build macOS
+description: 
+inputs:
+  version: 
+    required: true
+    type: string
+  mode: 
+    required: true
+    type: string
+  upload_url:
+    required: true
+    type: string
+  development:
+    required: true
+    type: boolean
+  developer_id:
+    required: true
+    type: string
+  build_dir:
+    required: true
+    type: string
+  product_name:
+    required: true
+    type: string
+  notarytool_keychain_profile:
+    required: true
+    type: string
+  build_project_path:
+    required: true
+    type: string
+  build_settings_path:
+    required: true
+    type: string
