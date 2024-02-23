@@ -83,3 +83,6 @@ runs:
       echo "asset_name=${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
       echo "asset_path=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
     shell: bash
+    env: 
+      BUILD_DIR: ${{ inputs.build_dir }}
+      PRODUCT_NAME: ${{ inputs.product_name }}
