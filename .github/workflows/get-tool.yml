@@ -33,7 +33,7 @@ env:
   TOOL4D_BUILD: ${{ inputs.build }} 
   TOOL4D_SUFFIX: ""
   TOOL4D_EXECUTABLE_PATH: ""
-  CURL_DOWNLOAD_URL: ""
+  TOOL4D_DOWNLOAD_URL: ""
 
 jobs:
   get:
@@ -62,7 +62,7 @@ jobs:
         if: ${{ env.platform == 'windows' }}
         run: |
           chcp 65001 #set code page to utf-8
-          echo ("CURL_DOWNLOAD_URL="+$env:TOOL4D_URL+$env:TOOL4D_BRANCH+"/"+$env:TOOL4D_VERSION+"/"+$env:TOOL4D_BUILD+"/"+$env:TOOL4D_PLATFORM+"/tool4d_v"+$env:TOOL4D_VERSION+"_"+$env:TOOL4D_PLATFORM+$env:TOOL4D_SUFFIX+".tar.xz") >> $env:GITHUB_ENV
+          echo ("TOOL4D_DOWNLOAD_URL="+$env:TOOL4D_URL+$env:TOOL4D_BRANCH+"/"+$env:TOOL4D_VERSION+"/"+$env:TOOL4D_BUILD+"/"+$env:TOOL4D_PLATFORM+"/tool4d_v"+$env:TOOL4D_VERSION+"_"+$env:TOOL4D_PLATFORM+$env:TOOL4D_SUFFIX+".tar.xz") >> $env:GITHUB_ENV
       - name: check platform macos   
         if: ${{ env.platform == 'macos' }}
         run: |
@@ -72,15 +72,22 @@ jobs:
       - name: check platform macos  
         if: ${{ env.platform == 'macos' }}
         run: |          
-          echo "CURL_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_v${TOOL4D_VERSION}_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
+          echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_v${TOOL4D_VERSION}_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
    
       - name: download tool4d
         if: ${{ env.platform }}
         run: |          
-          curl "${CURL_DOWNLOAD_URL}" -o tool4d.tar.xz -sL
+          curl "${TOOL4D_DOWNLOAD_URL}" -o tool4d.tar.xz -sL
           tar xvJf tool4d.tar.xz
         shell: bash
       - id: get  
         run: |
-            echo "tool4d_download_url=${CURL_DOWNLOAD_URL}" >> $GITHUB_OUTPUT
+            echo "tool4d_download_url=${TOOL4D_DOWNLOAD_URL}" >> $GITHUB_OUTPUT
             echo "tool4d_executable_path=${TOOL4D_EXECUTABLE_PATH}" >> $GITHUB_OUTPUT
+      - name: execute
+        if: ${{ env.workflow }}
+        uses: ${{ env.workflow }}
+        with:
+          tool4d_download_url: ${{ env.TOOL4D_DOWNLOAD_URL }}
+          tool4d_executable_path: ${{ env.TOOL4D_EXECUTABLE_PATH }}
+        
