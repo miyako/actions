@@ -46,6 +46,32 @@ jobs:
           build: 100959
 ```
 
+e.g. with a `strategy`
+
+```yml
+jobs:     
+
+  get:
+    strategy:
+      fail-fast: false
+      matrix:
+        TOOL4D_PLATFORM: ["windows-latest", "macos-latest"]
+        TOOL4D_BRANCH: [20.x]
+        TOOL4D_VERSION: [20.2]
+        TOOL4D_BUILD: [latest] 
+    runs-on: ${{ matrix.TOOL4D_PLATFORM }}
+    steps:
+    
+      - name: get tool4d
+        id: get
+        uses: miyako/4D/.github/actions/get-tool@v1
+        with:
+          platform: ${{ matrix.TOOL4D_PLATFORM }}
+          branch: ${{ matrix.TOOL4D_BRANCH }}
+          version: ${{ matrix.TOOL4D_VERSION }}
+          build: ${{ matrix.TOOL4D_BUILD }}
+```
+
 ## Remarks
 
 `curl` on Windows seem to block on the default `pwsh`. Using `shell: bash` instead.
