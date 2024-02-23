@@ -82,4 +82,7 @@ jobs:
 
 # [Build macOS](https://github.com/miyako/4D/blob/v1/.github/actions/build-macos/action.yml) action
 
+runner: [`macos`, `self-hosted`]
+trigger: workflow_call only
+
 Compile, build, archive, sign, notarise, staple, upload macOS product on self-hosted runner and the [`compiler`](https://github.com/miyako/4d-class-compiler) project.
