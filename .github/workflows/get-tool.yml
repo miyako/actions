@@ -19,6 +19,16 @@ on:
         required: true
         type: string
     outputs:
+       platform:
+         value: ${{ inputs.platform }}
+       labels: 
+         value: ${{ inputs.labels }}
+       branch: 
+         value: ${{ inputs.branch }}
+       version: 
+         value: ${{ inputs.version }}
+       build: 
+         value: ${{ inputs.build }}
        tool4d_download_url:
          value: ${{ jobs.get.outputs.tool4d_download_url }}
        tool4d_executable_path:
