@@ -9,7 +9,7 @@ Increment the version in `package.json` at the root of the current repository.
 
 ## Note
 
-The version information from `package.json` is used by the `compiler` project when `localbuild` is specified.
+The version information from `package.json` is used by the [`compiler`](https://github.com/miyako/4d-class-compiler) project when `localbuild` is specified.
    
 # Create Release workflow
 
