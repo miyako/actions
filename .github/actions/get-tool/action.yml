@@ -58,8 +58,6 @@ runs:
         echo ("TOOL4D_SUFFIX=") >> $env:GITHUB_ENV
         echo ("TOOL4D_EXECUTABLE_PATH=./tool4d/tool4d.exe") >> $env:GITHUB_ENV 
       shell: pwsh  
-      env:
-        TOOL4D_PLATFORM: ${{ inputs.platform }}
     
     - name: check platform windows
       if: ${{ env.platform == 'windows' }}
@@ -68,7 +66,6 @@ runs:
         echo ("TOOL4D_DOWNLOAD_URL="+$env:TOOL4D_URL+$env:TOOL4D_BRANCH+"/"+$env:TOOL4D_VERSION+"/"+$env:TOOL4D_BUILD+"/"+$env:TOOL4D_PLATFORM+"/tool4d_v"+$env:TOOL4D_VERSION+"_"+$env:TOOL4D_PLATFORM+$env:TOOL4D_SUFFIX+".tar.xz") >> $env:GITHUB_ENV
       shell: pwsh  
       env:
-        TOOL4D_PLATFORM: ${{ inputs.platform }}
         TOOL4D_BRANCH: ${{ inputs.branch }}
         TOOL4D_VERSION: ${{ inputs.version }}
         TOOL4D_BUILD: ${{ inputs.build }} 
@@ -80,8 +77,6 @@ runs:
         echo "TOOL4D_SUFFIX=_x86" >> $GITHUB_ENV # github macos vm runs on intel 
         echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
       shell: bash  
-      env:
-        TOOL4D_PLATFORM: ${{ inputs.platform }}
   
     - name: check platform macos  
       if: ${{ env.platform == 'macos' }}
@@ -89,7 +84,6 @@ runs:
         echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_v${TOOL4D_VERSION}_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
       shell: bash
       env:
-        TOOL4D_PLATFORM: ${{ inputs.platform }}
         TOOL4D_BRANCH: ${{ inputs.branch }}
         TOOL4D_VERSION: ${{ inputs.version }}
         TOOL4D_BUILD: ${{ inputs.build }} 
