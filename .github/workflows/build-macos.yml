@@ -16,7 +16,6 @@ on:
       development:
         required: true
         type: boolean
-
       developer_id:
         required: true
         type: string
@@ -35,7 +34,16 @@ on:
       build_settings_path:
         required: true
         type: string
-  
+        
+env: 
+
+  DEVELOPER_ID: ${{ inputs.developer_id }}
+  BUILD_DIR: ${{ inputs.build_dir }}
+  PRODUCT_NAME: ${{ inputs.product_name }}
+  NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
+  BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
+  BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
+
 jobs:
           
   build:
@@ -65,9 +73,6 @@ jobs:
         run: |
           echo "ASSET_NAME=${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
           echo "ASSET_PATH=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
-        env:
-          BUILD_DIR: ${{ env.BUILD_DIR }}
-          PRODUCT_NAME: ${{ env.PRODUCT_NAME }}
           
       - name: upload product
         if: ${{ inputs.development }}
