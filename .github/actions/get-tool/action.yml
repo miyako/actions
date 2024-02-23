@@ -1,32 +1,31 @@
 name: Get Tool
 description: Download tool4d for the current platform
-
-  inputs:
-      platform:
-        required: true
-        type: string
-      branch: 
-        required: true
-        type: string
-      version: 
-        required: true
-        type: string
-      build: 
-        required: true
-        type: string
-    outputs:
-       platform:
-         value: ${{ inputs.platform }}
-       branch: 
-         value: ${{ inputs.branch }}
-       version: 
-         value: ${{ inputs.version }}
-       build: 
-         value: ${{ inputs.build }}
-       tool4d_download_url:
-         value: ${{ steps.get.outputs.tool4d_download_url }}
-       tool4d_executable_path:
-         value: ${{ steps.get.outputs.tool4d_executable_path }}
+inputs:
+  platform:
+    required: true
+    type: string
+  branch: 
+    required: true
+    type: string
+  version: 
+    required: true
+    type: string
+  build: 
+    required: true
+    type: string
+outputs:
+ platform:
+   value: ${{ inputs.platform }}
+ branch: 
+   value: ${{ inputs.branch }}
+ version: 
+   value: ${{ inputs.version }}
+ build: 
+   value: ${{ inputs.build }}
+ tool4d_download_url:
+   value: ${{ steps.get.outputs.tool4d_download_url }}
+ tool4d_executable_path:
+   value: ${{ steps.get.outputs.tool4d_executable_path }}
 
 env: 
 
