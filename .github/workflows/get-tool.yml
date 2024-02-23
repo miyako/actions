@@ -85,8 +85,8 @@ jobs:
             echo "tool4d_download_url=${TOOL4D_DOWNLOAD_URL}" >> $GITHUB_OUTPUT
             echo "tool4d_executable_path=${TOOL4D_EXECUTABLE_PATH}" >> $GITHUB_OUTPUT
       - name: execute
-        if: ${{ env.workflow }}
-        uses: ${{ env.workflow }}
+        if: ${{ env.onready }}
+        uses: ${{ env.onready }}
         with:
           tool4d_download_url: ${{ env.TOOL4D_DOWNLOAD_URL }}
           tool4d_executable_path: ${{ env.TOOL4D_EXECUTABLE_PATH }}
