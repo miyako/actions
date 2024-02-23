@@ -4,9 +4,6 @@ name: Get Tool
       platform:
         required: true
         type: string
-      labels: 
-        required: true
-        type: string
       branch: 
         required: true
         type: string
@@ -19,8 +16,6 @@ name: Get Tool
     outputs:
        platform:
          value: ${{ inputs.platform }}
-       labels: 
-         value: ${{ inputs.labels }}
        branch: 
          value: ${{ inputs.branch }}
        version: 
