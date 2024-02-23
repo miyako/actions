@@ -16,7 +16,7 @@ Create a new release for the current repository.
 * inputs: `version`: release name, tag name
 * outputs: `upload_url`: the url to upload assets 
 
-# Get Tool
+# Get Tool action
 
 Cross-platfrom workflow to download `tool4d` from 4D.com.
 
