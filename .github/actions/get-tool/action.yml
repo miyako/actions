@@ -110,6 +110,11 @@ runs:
       
     - id: get  
       run: |
-          echo "tool4d_download_url=${TOOL4D_DOWNLOAD_URL}" >> $GITHUB_OUTPUT
-          echo "tool4d_executable_path=${TOOL4D_EXECUTABLE_PATH}" >> $GITHUB_OUTPUT
+        echo "tool4d_download_url=${TOOL4D_DOWNLOAD_URL}" >> $GITHUB_OUTPUT
+        echo "tool4d_executable_path=${TOOL4D_EXECUTABLE_PATH}" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: ls
+      run: |
+        ls .  
       shell: bash
