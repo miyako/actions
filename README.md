@@ -1,4 +1,4 @@
-# Bump workflow
+# [Bump](https://github.com/miyako/4D/blob/v1/.github/workflows/bump.yml) workflow
 
 Increment the version in `package.json` at the root of the current repository.
 
@@ -11,7 +11,7 @@ Increment the version in `package.json` at the root of the current repository.
 
 The version information from `package.json` is used by the [`compiler`](https://github.com/miyako/4d-class-compiler) project when `localbuild` is specified.
    
-# Create Release workflow
+# [Create Release](https://github.com/miyako/4D/blob/v1/.github/workflows/create-release.yml) workflow
 
 Create a new release for the current repository.
 
@@ -20,7 +20,7 @@ Create a new release for the current repository.
 * inputs: `version`: release name, tag name
 * outputs: `upload_url`: the url to upload assets 
 
-# Get Tool action
+# [Get Tool](https://github.com/miyako/4D/blob/v1/.github/actions/get-tool/action.yml) action
 
 Cross-platfrom workflow to download `tool4d` from 4D.com.
 
@@ -79,3 +79,7 @@ jobs:
 ## Remarks
 
 `curl` on Windows seem to block on the default `pwsh`. Using `shell: bash` instead.
+
+# [Build macOS](https://github.com/miyako/4D/blob/v1/.github/actions/build-macos/action.yml) action
+
+Compile, build, archive, sign, notarise, staple, upload macOS product on self-hosted runner and the [`compiler`](https://github.com/miyako/4d-class-compiler) project.
