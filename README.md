@@ -30,14 +30,16 @@ e.g.
 ```yml
 jobs:
 
-  get-tool:
-    uses: miyako/4D/.github/workflows/get-tool.yml@v1
-    with:
-      platform: macos
-      labels: "[\"macos\", \"self-hosted\"]"
-      branch: 20.x
-      version: 20.2
-      build: 100959
+  test:
+    runs-on: [macos-latest]
+    steps:
+      - name: get
+        uses: miyako/4D/.github/actions/get-tool@v1
+        with:
+          platform: macos
+          branch: 20.x
+          version: 20.2
+          build: 100959
 ```
 
 ## Remarks
