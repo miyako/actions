@@ -10,7 +10,7 @@ inputs:
   upload_url:
     required: true
     type: string
-  development:
+  deployment:
     required: true
     type: boolean
   developer_id:
@@ -51,7 +51,7 @@ runs:
          BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
          
      - name: prepare for distribution
-       if: ${{ inputs.development }}
+       if: ${{ inputs.deployment }}
        run: |
          PRODUCT_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.app
          DMG_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.dmg
@@ -68,14 +68,14 @@ runs:
          NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
 
      - name: setup
-        if: ${{ inputs.development }}
+        if: ${{ inputs.deployment }}
         run: |
           echo "ASSET_NAME=${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
           echo "ASSET_PATH=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
         shell: bash    
 
      - name: upload product
-        if: ${{ inputs.development }}
+        if: ${{ inputs.deployment }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
