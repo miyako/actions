@@ -1,8 +1,5 @@
 name: Create Release
 
-on:
-  workflow_dispatch: 
-
   workflow_call: 
     inputs:
       version: 
