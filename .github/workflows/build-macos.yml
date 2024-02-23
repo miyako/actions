@@ -1,7 +1,6 @@
 name: Build for macOS
 
-on:      
-      
+on:            
   workflow_call: 
     inputs:
       version: 
