@@ -29,6 +29,10 @@ Cross-platfrom workflow to download `tool4d` from 4D.com.
 * inputs: see below
 * outputs: `tool4d_download_url` `tool4d_executable_path`
 
+## Note
+
+You should checkout your repository before running this action.
+
 e.g.
 
 ```yml
