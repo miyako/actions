@@ -13,6 +13,9 @@ inputs:
   build: 
     required: true
     type: string
+  arch:
+    required: false
+    type: string
 outputs:
  platform:
    value: ${{ inputs.platform }}
@@ -71,13 +74,21 @@ runs:
         TOOL4D_BUILD: ${{ inputs.build }} 
 
     - name: check platform macos   
-      if: ${{ env.platform == 'macos' }}
+      if: ${{ (env.platform == 'macos') && (inputs.arch != 'arm') }}
       run: |
         echo "TOOL4D_PLATFORM=mac" >> $GITHUB_ENV
         echo "TOOL4D_SUFFIX=_x86" >> $GITHUB_ENV # github macos vm runs on intel 
         echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
+      shell: bash 
+      
+    - name: check platform macos   
+      if: ${{ (env.platform == 'macos') && (inputs.arch == 'arm') }}
+      run: |
+        echo "TOOL4D_PLATFORM=mac" >> $GITHUB_ENV
+        echo "TOOL4D_SUFFIX=_arm" >> $GITHUB_ENV # github macos vm runs on intel 
+        echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
       shell: bash  
-  
+      
     - name: check platform macos  
       if: ${{ env.platform == 'macos' }}
       run: |          
