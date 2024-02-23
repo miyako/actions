@@ -6,6 +6,10 @@ Increment the version in `package.json` at the root of the current repository.
 * trigger: `workflow_call` only
 * inputs: `mode`: patch, minor, major
 * outputs: `version`: bumped version
+
+## Note
+
+The version information from `package.json` is used by the `compiler` project when `localbuild` is specified.
    
 # Create Release workflow
 
