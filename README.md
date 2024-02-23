@@ -76,6 +76,10 @@ jobs:
           build: ${{ matrix.TOOL4D_BUILD }}
 ```
 
+e.g.
+
+https://github.com/miyako/4d-topic-cicd/blob/main/.github/workflows/test.yml
+
 ## Remarks
 
 `curl` on Windows seem to block on the default `pwsh`. Using `shell: bash` instead.
