@@ -36,53 +36,53 @@ runs:
   using: "composite"
   steps:
   
-    - name: checkout compiler repo
-      uses: actions/checkout@v4
-      with:
-        repository: miyako/4d-class-compiler
-        path: compiler
+  - name: checkout compiler repo
+    uses: actions/checkout@v4
+    with:
+      repository: miyako/4d-class-compiler
+      path: compiler
   
-     - name: compile project
-       run: |
-         tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --startup-method=localbuild --user-param=${PWD}/${BUILD_SETTINGS_PATH},${PWD}/${BUILD_PROJECT_PATH} --dataless
-       shell: bash
-       env: 
-         BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
-         BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
+  - name: compile project
+    run: |
+      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --startup-method=localbuild --user-param=${PWD}/${BUILD_SETTINGS_PATH},${PWD}/${BUILD_PROJECT_PATH} --dataless
+      shell: bash
+      env: 
+        BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
+        BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
          
-     - name: prepare for distribution
-       if: ${{ inputs.deployment }}
-       run: |
-         PRODUCT_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.app
-         DMG_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.dmg
-         codesign --verbose --deep --timestamp --force --sign "${DEVELOPER_ID}" --options=runtime ${PRODUCT_PATH} 
-         rm -f "${DMG_PATH}"
-         hdiutil create -format UDBZ -plist -srcfolder ${PRODUCT_PATH} ${DMG_PATH}
-         xcrun notarytool submit --keychain-profile "${NOTARYTOOL_KEYCHAIN_PROFILE}" ${DMG_PATH} --wait
-         xcrun stapler staple ${DMG_PATH}
-       shell: bash
-       env: 
-         DEVELOPER_ID: ${{ inputs.developer_id }}
-         BUILD_DIR: ${{ inputs.build_dir }}
-         PRODUCT_NAME: ${{ inputs.product_name }}
-         NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
+  - name: prepare for distribution
+    if: ${{ inputs.deployment }}
+    run: |
+      PRODUCT_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.app
+      DMG_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.dmg
+      codesign --verbose --deep --timestamp --force --sign "${DEVELOPER_ID}" --options=runtime ${PRODUCT_PATH} 
+      rm -f "${DMG_PATH}"
+      hdiutil create -format UDBZ -plist -srcfolder ${PRODUCT_PATH} ${DMG_PATH}
+      xcrun notarytool submit --keychain-profile "${NOTARYTOOL_KEYCHAIN_PROFILE}" ${DMG_PATH} --wait
+      xcrun stapler staple ${DMG_PATH}
+    shell: bash
+    env: 
+      DEVELOPER_ID: ${{ inputs.developer_id }}
+      BUILD_DIR: ${{ inputs.build_dir }}
+      PRODUCT_NAME: ${{ inputs.product_name }}
+      NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
 
-     - name: setup
-        if: ${{ inputs.deployment }}
-        run: |
-          echo "ASSET_NAME=${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
-          echo "ASSET_PATH=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
-        shell: bash    
+  - name: setup
+    if: ${{ inputs.deployment }}
+    run: |
+      echo "ASSET_NAME=${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
+      echo "ASSET_PATH=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
+    shell: bash    
 
-     - name: upload product
-        if: ${{ inputs.deployment }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ inputs.upload_url }}
-          asset_path: ${{ env.ASSET_PATH }}
-          asset_name: ${{ env.ASSET_NAME }}
-          asset_content_type: application/octet-stream
-        shell: bash           
-       
+  - name: upload product
+    if: ${{ inputs.deployment }}
+    uses: actions/upload-release-asset@v1
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      upload_url: ${{ inputs.upload_url }}
+      asset_path: ${{ env.ASSET_PATH }}
+      asset_name: ${{ env.ASSET_NAME }}
+      asset_content_type: application/octet-stream
+    shell: bash           
+  
