@@ -31,7 +31,14 @@ inputs:
   build_settings_path:
     required: true
     type: string
-
+outputs: 
+    upload_url:
+      value: ${{ inputs.upload_url }}
+    asset_path:
+      value: ${{ steps.setup.outputs.asset_path }}
+    asset_name:
+      value: ${{ steps.setup.outputs.asset_name }}
+    
 runs:
   using: "composite"
   steps:
@@ -68,20 +75,9 @@ runs:
       NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
 
   - name: setup
+    id: setup
     if: ${{ inputs.deployment }}
     run: |
-      echo "ASSET_NAME=${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
-      echo "ASSET_PATH=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_ENV
-    shell: bash    
-
-  - name: upload product
-    if: ${{ inputs.deployment }}
-    uses: actions/upload-release-asset@v1
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    with:
-      upload_url: ${{ inputs.upload_url }}
-      asset_path: ${{ env.ASSET_PATH }}
-      asset_name: ${{ env.ASSET_NAME }}
-      asset_content_type: application/octet-stream
-    
+      echo "asset_name=${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
+      echo "asset_path=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
+    shell: bash
