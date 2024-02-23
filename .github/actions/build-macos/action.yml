@@ -32,6 +32,8 @@ inputs:
     required: true
     type: string
 outputs: 
+    deployment:
+      value: ${{ inputs.deployment }}
     upload_url:
       value: ${{ inputs.upload_url }}
     asset_path:
