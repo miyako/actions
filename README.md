@@ -1,4 +1,4 @@
-# Bump
+# Bump workflow
 
 Increment the version in `package.json` at the root of the current repository.
 
@@ -7,7 +7,7 @@ Increment the version in `package.json` at the root of the current repository.
 * inputs: `mode`: patch, minor, major
 * outputs: `version`: bumped version
    
-# Create Release
+# Create Release workflow
 
 Create a new release for the current repository.
 
