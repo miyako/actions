@@ -82,7 +82,10 @@ jobs:
 
 # [Build macOS](https://github.com/miyako/4D/blob/v1/.github/actions/build-macos/action.yml) action
 
-runner: [`macos`, `self-hosted`]
+runner: `[macos, self-hosted]`
 trigger: workflow_call only
+outputs: `asset_path` `asset_name` `upload_url`
 
-Compile, build, archive, sign, notarise, staple, upload macOS product on self-hosted runner and the [`compiler`](https://github.com/miyako/4d-class-compiler) project.
+Compile, build, archive, sign, notarise, staple, macOS product on self-hosted runner and the [`compiler`](https://github.com/miyako/4d-class-compiler) project.
+
+The created asset should be uploaded to GitHub by the caller workflow with its own `secrets.GITHUB_TOKEN`.
