@@ -60,7 +60,7 @@ runs:
       BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
       
   - name: prepare for distribution
-    if: ${{ inputs.deployment == true }}
+    if: ${{ inputs.deployment == 'true' }}
     run: |
       PRODUCT_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.app
       DMG_PATH=${PWD}/${BUILD_DIR}/${PRODUCT_NAME}.dmg
@@ -78,7 +78,7 @@ runs:
 
   - name: setup
     id: setup
-    if: ${{ inputs.deployment == true  }}
+    if: ${{ inputs.deployment == 'true' }}
     run: |
       echo "asset_name=${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
       echo "asset_path=./${BUILD_DIR}/${PRODUCT_NAME}.dmg" >> $GITHUB_OUTPUT
