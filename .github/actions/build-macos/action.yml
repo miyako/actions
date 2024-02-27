@@ -13,9 +13,6 @@ inputs:
   deployment:
     required: true
     type: boolean
-  developer_id:
-    required: true
-    type: string
   build_dir:
     required: true
     type: string
@@ -70,7 +67,6 @@ runs:
       xcrun stapler staple ${DMG_PATH}
     shell: bash
     env: 
-      DEVELOPER_ID: ${{ inputs.developer_id }}
       BUILD_DIR: ${{ inputs.build_dir }}
       PRODUCT_NAME: ${{ inputs.product_name }}
       NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
