@@ -37,8 +37,8 @@ runs:
   - name: compile project macos
     if: ${{ startsWith(inputs.platform, 'macos') }}
     run: |
-          "${BUILD_AGENT}" "./${BUILD_PROJECT_PATH}" --user-param="${PWD}/${BUILD_SETTINGS_PATH},../../../../${BUILD_DIR}" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
-        shell: bash
+      "${BUILD_AGENT}" "./${BUILD_PROJECT_PATH}" --user-param="${PWD}/${BUILD_SETTINGS_PATH},../../../../${BUILD_DIR}" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
+    shell: bash
     env:  
       BUILD_AGENT: ${{ inputs.build_agent_macos }}
       BUILD_DIR: ${{ inputs.build_dir }}
