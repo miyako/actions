@@ -22,5 +22,5 @@ runs:
   - name: checkout compiler repo
     uses: actions/checkout@v4
     with:
-    repository: miyako/4d-class-compiler
-    path: ${{ steps.setup.outputs.compiler_component_path }}
+      repository: miyako/4d-class-compiler
+      path: ${{ steps.setup.outputs.compiler_component_path }}
