@@ -30,7 +30,7 @@ runs:
   - name: checkout 
     uses: actions/checkout@v4
 
-    id: setup
+  - id: setup
     uses: ./.github/actions/install-compiler-component/@v1
     with:
       build_project_name: ${{ inputs.build_project_name }}
