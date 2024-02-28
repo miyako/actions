@@ -19,7 +19,7 @@ runs:
     if: ${{ startsWith(inputs.platform, 'windows') }}
     run: |
       chcp 65001 #set code page to utf-8
-    shell: bash
+    shell: pwsh
    
   - id: setup  
     run: |
