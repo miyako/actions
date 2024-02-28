@@ -19,7 +19,6 @@ inputs:
    platform: 
       required: true
       type: string     
-
 outputs: 
     compiler_component_path:
       value: ${{ steps.setup.outputs.compiler_component_path }}
@@ -36,7 +35,7 @@ runs:
       platform: ${{ inputs.platform }}
 
   - name: compile project macos
-  if: ${{ startsWith(inputs.platform, 'macos') }}
+    if: ${{ startsWith(inputs.platform, 'macos') }}
     run: |
           "${BUILD_AGENT}" "./${BUILD_PROJECT_PATH}" --user-param="${PWD}/${BUILD_SETTINGS_PATH},../../../../${BUILD_DIR}" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
         shell: bash
@@ -47,7 +46,7 @@ runs:
       BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
 
   - name: compile project windows
-  if: ${{ startsWith(inputs.platform, 'windows') }}
+    if: ${{ startsWith(inputs.platform, 'windows') }}
     run: |
       $build_project_path = Join-Path -Path "$PWD" -ChildPath "$env:BUILD_PROJECT_PATH"
       $build_settings_path = Join-Path -Path "$PWD" -ChildPath "$env:BUILD_SETTINGS_PATH"          
