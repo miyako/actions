@@ -13,14 +13,14 @@ runs:
   steps:
 
   - name: setup  
-        run: |
-          echo "compiler_component_path=${BUILD_PROJECT_NAME}/Components/compiler.4dbase" >> $GITHUB_OUTPUT
-        shell: bash
-        env:  
-          BUILD_PROJECT_NAME: ${{ inputs.build_project_name }}
+     run: |
+       echo "compiler_component_path=${BUILD_PROJECT_NAME}/Components/compiler.4dbase" >> $GITHUB_OUTPUT
+     shell: bash
+     env:  
+       BUILD_PROJECT_NAME: ${{ inputs.build_project_name }}
 
   - name: checkout compiler repo
-        uses: actions/checkout@v4
-        with:
-          repository: miyako/4d-class-compiler
-          path: ${{ steps.setup.outputs.compiler_component_path }}
+     uses: actions/checkout@v4
+     with:
+       repository: miyako/4d-class-compiler
+       path: ${{ steps.setup.outputs.compiler_component_path }}
