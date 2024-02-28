@@ -39,7 +39,7 @@ runs:
       "${BUILD_AGENT}" "./${BUILD_PROJECT_PATH}" --user-param="${PWD}/${BUILD_SETTINGS_PATH},../../../../${BUILD_DIR}" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
     shell: bash
     env:  
-      BUILD_AGENT: ${{ inputs.build_agent_macos }}
+      BUILD_AGENT: ${{ inputs.build_agent }}
       BUILD_DIR: ${{ inputs.build_dir }}
       BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
       BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
@@ -52,7 +52,7 @@ runs:
       & "$env:BUILD_AGENT" "$build_project_path" --user-param="$build_settings_path,../../../../$env:BUILD_DIR" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
     shell: powershell
     env:  
-      BUILD_AGENT: ${{ inputs.build_agent_macos }}
+      BUILD_AGENT: ${{ inputs.build_agent }}
       BUILD_DIR: ${{ inputs.build_dir }}
       BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
       BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
