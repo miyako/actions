@@ -19,7 +19,7 @@ runs:
     if: ${{ startsWith(inputs.platform, 'windows') }}
     run: |
       $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
-    shell: pwsh
+    shell: powershell
    
   - id: setup  
     run: |
