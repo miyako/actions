@@ -25,7 +25,7 @@ runs:
     env:  
       BUILD_PROJECT_NAME: ${{ inputs.build_project_name }}
       
-  - name: check platform windows
+  - name: check platform macos
     if: ${{ startsWith(inputs.platform, 'macos') }}
     run: |
       echo "platform=macos" >> $env:GITHUB_ENV    
