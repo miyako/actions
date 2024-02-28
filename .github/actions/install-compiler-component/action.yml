@@ -28,7 +28,7 @@ runs:
   - name: check platform windows
     if: ${{ startsWith(inputs.platform, 'macos') }}
     run: |
-      echo ("platform=macos") >> $env:GITHUB_ENV    
+      echo "platform=macos" >> $env:GITHUB_ENV    
       echo "compiler_component_path=${BUILD_PROJECT_NAME}/Components/compiler.4dbase" >> $GITHUB_ENV
     shell: bash
     env:  
