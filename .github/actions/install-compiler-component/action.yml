@@ -20,7 +20,7 @@ runs:
     run: |
       $OutputEncoding = [System.Text.Encoding]::GetEncoding('utf-8')
       echo ("platform=windows") >> $env:GITHUB_ENV
-      echo ("compiler_component_path=${BUILD_PROJECT_NAME}/Components/compiler.4dbase") >> $env:GITHUB_ENV      
+      echo ("compiler_component_path="+$env:BUILD_PROJECT_NAME+"/Components/compiler.4dbase") >> $env:GITHUB_ENV      
     shell: powershell
     env:  
       BUILD_PROJECT_NAME: ${{ inputs.build_project_name }}
