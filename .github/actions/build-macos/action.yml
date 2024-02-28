@@ -50,9 +50,10 @@ runs:
   
   - name: compile project
     run: |
-      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --startup-method=build --user-param=${PWD}/${BUILD_SETTINGS_PATH},${PWD}/${BUILD_PROJECT_PATH},../${BUILD_DIR} --dataless
+      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --startup-method=build --user-param=${PWD}/${BUILD_SETTINGS_PATH},../${BUILD_PROJECT_PATH},../${BUILD_DIR} --dataless
     shell: bash
     env: 
+      BUILD_DIR: ${{ inputs.build_dir }}
       BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}
       BUILD_SETTINGS_PATH: ${{ inputs.build_settings_path }}
       
