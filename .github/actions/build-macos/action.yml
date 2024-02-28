@@ -69,7 +69,7 @@ runs:
       PRODUCT_PATH=${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.app
       DMG_PATH=${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg
       rm -f "${DMG_PATH}"
-      hdiutil create -format UDBZ -plist -srcfolder ${PRODUCT_PATH} ${DMG_PATH}
+      hdiutil create -format UDBZ -plist -srcfolder "${PRODUCT_PATH}" "${DMG_PATH}"
       xcrun notarytool submit --keychain-profile "${NOTARYTOOL_KEYCHAIN_PROFILE}" ${DMG_PATH} --wait
       xcrun stapler staple ${DMG_PATH}
     shell: bash
