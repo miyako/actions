@@ -56,7 +56,7 @@ runs:
   
   - name: compile project
     run: |
-      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=build --user-param=${PWD}/${BUILD_SETTINGS_PATH},${PWD}/${BUILD_PROJECT_PATH},../../${BUILD_DIR} --dataless
+      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=build --user-param="${PWD}/${BUILD_SETTINGS_PATH},${PWD}/${BUILD_PROJECT_PATH},../../${BUILD_DIR}" --dataless
     shell: bash
     env: 
       BUILD_DIR: ${{ inputs.build_dir }}
@@ -66,12 +66,12 @@ runs:
   - name: prepare for distribution
     if: ${{ inputs.deployment == 'true' }}
     run: |
-      PRODUCT_PATH=${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.app
-      DMG_PATH=${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg
+      PRODUCT_PATH="${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.app"
+      DMG_PATH="${PWD}/${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg"
       rm -f "${DMG_PATH}"
       hdiutil create -format UDBZ -plist -srcfolder "${PRODUCT_PATH}" "${DMG_PATH}"
       xcrun notarytool submit --keychain-profile "${NOTARYTOOL_KEYCHAIN_PROFILE}" "${DMG_PATH}" --wait
-      xcrun stapler staple ${DMG_PATH}
+      xcrun stapler staple "${DMG_PATH}"
     shell: bash
     env: 
       BUILD_DIR: ${{ inputs.build_dir }}
