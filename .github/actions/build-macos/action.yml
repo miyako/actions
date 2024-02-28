@@ -84,8 +84,8 @@ runs:
     id: setup
     if: ${{ inputs.deployment == 'true' }}
     run: |
-      echo "asset_name='${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg'" >> $GITHUB_OUTPUT
-      echo "asset_path='./${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg'" >> $GITHUB_OUTPUT
+      echo "asset_name=${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg" >> $GITHUB_OUTPUT
+      echo "asset_path=./${BUILD_DIR}/${BUILD_PRODUCT_FOLDER_NAME}/${PRODUCT_NAME}${BUILD_PRODUCT_SUFFIX}.dmg" >> $GITHUB_OUTPUT
     shell: bash
     env: 
       BUILD_DIR: ${{ inputs.build_dir }}
