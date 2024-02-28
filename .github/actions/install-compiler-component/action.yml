@@ -16,10 +16,10 @@ runs:
   steps:
 
   - name: check platform windows
-      if: ${{ startsWith(inputs.platform, 'windows') }}
-      run: |
-        chcp 65001 #set code page to utf-8
-      shell: bash
+    if: ${{ startsWith(inputs.platform, 'windows') }}
+    run: |
+      chcp 65001 #set code page to utf-8
+    shell: bash
    
   - id: setup  
     run: |
