@@ -27,11 +27,8 @@ runs:
   using: "composite"
   steps:
 
-  - name: checkout 
-    uses: actions/checkout@v4
-
   - id: setup
-    uses: ./.github/actions/install-compiler-component/@v1
+    uses: miyako/4D/.github/actions/install-compiler-component/@v1
     with:
       build_project_name: ${{ inputs.build_project_name }}
       platform: ${{ inputs.platform }}
