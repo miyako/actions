@@ -4,6 +4,9 @@ inputs:
    build_project_name: 
       required: true
       type: string  
+   platform: 
+      required: true
+      type: string  
 outputs: 
     compiler_component_path:
       value: ${{ steps.setup.outputs.compiler_component_path }}
@@ -12,6 +15,12 @@ runs:
   using: "composite"
   steps:
 
+  - name: check platform windows
+      if: ${{ startsWith(inputs.platform, 'windows') }}
+      run: |
+        chcp 65001 #set code page to utf-8
+      shell: bash
+   
   - id: setup  
     run: |
       echo "compiler_component_path=${BUILD_PROJECT_NAME}/Components/compiler.4dbase" >> $GITHUB_OUTPUT
