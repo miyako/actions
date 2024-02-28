@@ -78,7 +78,7 @@ runs:
       PRODUCT_NAME: ${{ inputs.product_name }}
       NOTARYTOOL_KEYCHAIN_PROFILE: ${{ inputs.notarytool_keychain_profile }}
       BUILD_PRODUCT_FOLDER_NAME: ${{ inputs.build_product_folder_name }}
-      BUILD_PRODUCT_SUFFIX: $ {{ inputs.build_product_suffix }}
+      BUILD_PRODUCT_SUFFIX: ${{ inputs.build_product_suffix }}
 
   - name: setup
     id: setup
@@ -91,4 +91,4 @@ runs:
       BUILD_DIR: ${{ inputs.build_dir }}
       PRODUCT_NAME: ${{ inputs.product_name }}
       BUILD_PRODUCT_FOLDER_NAME: ${{ inputs.build_product_folder_name }}
-      BUILD_PRODUCT_SUFFIX: $ {{ inputs.build_product_suffix }}
+      BUILD_PRODUCT_SUFFIX: ${{ inputs.build_product_suffix }}
