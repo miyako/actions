@@ -12,6 +12,10 @@ on:
     outputs:
        upload_url:
          value: ${{ jobs.create.outputs.upload_url }}
+       mode:
+         value: ${{ inputs.mode }}  
+       version:
+         value: ${{ inputs.version }}  
          
 env:
 
