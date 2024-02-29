@@ -50,7 +50,7 @@ runs:
       $build_project_path = Join-Path -Path "$PWD" -ChildPath "$env:BUILD_PROJECT_PATH"
       $build_settings_path = Join-Path -Path "$PWD" -ChildPath "$env:BUILD_SETTINGS_PATH"          
       & "$env:BUILD_AGENT" "$build_project_path" --user-param="$build_settings_path,../../../../$env:BUILD_DIR" --headless --skip-onstartup --startup-method=compiler_build_application --dataless
-    shell: powershell
+    shell: pwsh
     env:  
       BUILD_AGENT: ${{ inputs.build_agent }}
       BUILD_DIR: ${{ inputs.build_dir }}
