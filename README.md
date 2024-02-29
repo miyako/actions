@@ -86,9 +86,9 @@ https://github.com/miyako/4d-topic-cicd/blob/main/.github/workflows/test.yml
 
 # [Build Application]() action
 
-runner: `[macos, self-hosted]`, `[windows, self-hosted]`
-trigger: workflow_call only
-outputs: `compiler_component_path`
+* runner: `[macos, self-hosted]`, `[windows, self-hosted]`
+* trigger: workflow_call only
+* outputs: `compiler_component_path`
 
 Compile, build on self-hosted runner using the specified agent (4D, not `tool4d`), the [`compiler`](https://github.com/miyako/4d-class-compiler) project as a component, and the command `BUILD APPLICATION`.
 
@@ -132,9 +132,9 @@ The shell on Windows is `powershell`, not `pwsh` (which may not be installed).
 
 # [Build macOS](https://github.com/miyako/4D/blob/v1/.github/actions/build-macos/action.yml) action
 
-runner: `[macos, self-hosted]`
-trigger: workflow_call only
-outputs: `asset_path` `asset_name` `upload_url`
+* runner: `[macos, self-hosted]`
+* trigger: workflow_call only
+* outputs: `asset_path` `asset_name` `upload_url`
 
 Compile, build, archive, sign, notarise, staple, macOS product on self-hosted runner using the [`compiler`](https://github.com/miyako/4d-class-compiler) project.
 
