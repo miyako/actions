@@ -1,0 +1,15 @@
+name: Sign App
+description: 
+inputs:
+  nameCertificat:
+    required: true
+    type: string
+  PathApp:
+    required: true
+    type: string
+  Entitlements:
+    required: true
+    type: string
+  LogPath:
+    required: true
+    type: string
