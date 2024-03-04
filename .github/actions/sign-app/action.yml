@@ -213,4 +213,5 @@ runs:
         PathApp: ${{ inputs.PathApp }}
         LogPath: ${{ inputs.LogPath }}
         keychain: ${{ inputs.keychain }}
+        boolError: 0
         
