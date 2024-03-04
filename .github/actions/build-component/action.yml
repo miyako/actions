@@ -18,7 +18,7 @@ runs:
       repository: miyako/4d-class-compiler
       path: compiler
 
-   - name: compile project
+  - name: compile project
     run: |
       tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=component --user-param="${PWD}/${BUILD_PROJECT_PATH},../../${BUILD_DIR}" --dataless
     shell: bash     
