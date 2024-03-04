@@ -7,6 +7,12 @@ inputs:
   PathApp:
     required: true
     type: string
+  Entitlements:
+    required: true
+    type: string
+  LogPath:
+    required: true
+    type: string
     
 runs:
   using: "composite"
@@ -199,8 +205,8 @@ runs:
 
       shell: bash  
       env:
-        Entitlements: ''
+        Entitlements: ${{ inputs.Entitlements }}
         nameCertificat: ${{ inputs.nameCertificat }}
         PathApp: ${{ inputs.PathApp }}
-        LogPath: ./sign.log
+        LogPath: ${{ inputs.LogPath }}
         
