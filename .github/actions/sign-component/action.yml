@@ -71,4 +71,136 @@ runs:
         fi
         return $FlagError
         }
+        function Sign ()
+        {
+        
+        local FlagError="$1"
+        local CertifName="$2"
+        local PathSign="$3"
+        local Entitlements="$4"
+        local logSign="$5"
+        local globalError=0
+        
+        if [[ ! -z $logSign ]]; then
+        exec > $logSign
+        fi
+        
+        PrepareCommand "$PathSign"
+        xattr -rc "$PathSign"
+        
+        for line in $(eval $commands)
+        do
+        files+=("$line")
+        done
+        
+        
+        #Convert the name of "info.plist" to "Info.plist"
+        for line in $(eval "find '$PathSign' -path '*/*.bundle/*' -name info.plist")
+        do
+        mv $line $(dirname "$line")/Info.plist
+        done
+        
+        #Sign in revert order
+        for (( idx=${#files[@]}-1 ; idx>=0 ; idx-- )) ; do
+        
+        for (( folderI=0; folderI<${#foldersToCheck[@]} ; folderI++ )) ; do
+        local fullPath="${files[idx]}"/"${foldersToCheck[folderI]}"
+        if test -d "$fullPath" ; then
+        for line in "$fullPath"/*
+        do
+        if [ -f $line ]; then
+        SignFile "$CertifName" "$Entitlements" $line false
+        let FlagError=$?
+        
+        #If the file is already signed, continue
+        if [ "$FlagError" -eq "1" ]; then
+        echo "Error $line"
+        let globalError=$FlagError
+        let FlagError=0
+        fi
+        fi
+        done
+        fi
+        
+        
+        
+        done
+        
+        #Force the .app signature
+        if [ "$idx" -eq "0" ]
+        then
+        SignFile "$CertifName" "$Entitlements" "${files[idx]}" true
+        else
+        SignFile "$CertifName" "$Entitlements" "${files[idx]}" false
+        fi
+        let FlagError=$?
+        
+        if [ "$FlagError" -eq "1" ]; then
+        echo "Error ${files[idx]}"
+        let globalError=$FlagError
+        let FlagError=0
+        fi
+        done
+        
+        #The last one is the app folder. The app folder should not fail.
+        return $globalError
+        
+        }
+        
+        function SignComponent ()
+        {
+        local FlagError="$1"
+        local CertifName="$2"
+        local PathSign="$3"
+        local Entitlements="$4"
+        local logSign="$5"
+        local globalError=0
+        
+        if [[ ! -z $logSign ]]; then
+        exec > $logSign
+        fi
+        
+        PrepareCommand "$PathSign"
+        xattr -rc "$PathSign"
+        
+        for line in $(eval $commands)
+        do
+        files+=("$line")
+        done
+        
+        #Sign in revert order
+        for (( idx=${#files[@]}-1 ; idx>=0 ; idx-- )) ; do
+        SignFile "$CertifName" "$Entitlements" "${files[idx]}" false
+        
+        let FlagError=$?
+        
+        if [ "$FlagError" -eq "1" ]; then
+        echo "Error ${files[idx]}"
+        let globalError=$FlagError
+        let FlagError=0
+        fi
+        
+        done
+        
+        #The last one is the app folder. The app folder should not fail.
+        return $globalError
+        
+        }
+
+        if [[ "${PathApp}" == *".4dbase"* ]]
+        then
+        SignComponent $boolError "${nameCertificat}" "${PathApp}" "${Entitlements}" "${LogPath}"
+        else
+        Sign $boolError "${nameCertificat}" "${PathApp}" "${Entitlements}" "${LogPath}"
+        fi
+        
+        boolError=$?
+        exit $boolError
+
       shell: bash  
+      env:
+        Entitlements: ./4D.entitlements
+        nameCertificat: ${{ inputs.nameCertificat }}
+        PathApp: ${{ inputs.PathApp }}
+        LogPath: ./sign.log
+        
