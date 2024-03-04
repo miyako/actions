@@ -71,7 +71,4 @@ runs:
         fi
         return $FlagError
         }
-      
       shell: bash  
-      env:
-        TOOL4D_URL: -
