@@ -14,63 +14,63 @@ runs:
   
     - name: sign
       run: |
-　　　　files=()
-　　　　filesToSign=('app' 'dylib' 'framework' 'so' 'bundle' 'plugin')
-　　　　foldersToCheck=('Contents/Library/LaunchServices')
-　　　　commands=""
-　　　　IFS=$'
-　　　　'
-      function PrepareCommand ()
-      {
-        commands="find '$1'"
-        for (( idx=0; idx<${#filesToSign[@]} ; idx++ )) ; do
-        if [ $idx -ne 0 ]; then
-          commands+=' -o'
-        fi
-        commands+=" -name '*.${filesToSign[idx]}'"
-        done
-      }
-      function SignFile ()
-      {
-        local CertifName="$1"
-        local Entitlements="$2"
-        local file="$3"
-        local force="$4"
-  
-        if [ ! -L "$file" ]
-          then
-          if [ "$force" = true ]
+  　　　　files=()
+  　　　　filesToSign=('app' 'dylib' 'framework' 'so' 'bundle' 'plugin')
+  　　　　foldersToCheck=('Contents/Library/LaunchServices')
+  　　　　commands=""
+  　　　　IFS=$'
+  　　　　'
+        function PrepareCommand ()
+        {
+          commands="find '$1'"
+          for (( idx=0; idx<${#filesToSign[@]} ; idx++ )) ; do
+          if [ $idx -ne 0 ]; then
+            commands+=' -o'
+          fi
+          commands+=" -name '*.${filesToSign[idx]}'"
+          done
+        }
+        function SignFile ()
+        {
+          local CertifName="$1"
+          local Entitlements="$2"
+          local file="$3"
+          local force="$4"
+    
+          if [ ! -L "$file" ]
             then
-            codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" "$file" 2>&1
-            let FlagError=$?
-          else
-            v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
-            let FlagError=$?
-            output=$v
-            if [ "$FlagError" -eq "1" ]
+            if [ "$force" = true ]
               then
-              local v=$(codesign -dvvv --verbose "$file" 2>&1)
-              if [[ "$v" == *"Signature=adhoc"* ]]
+              codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" "$file" 2>&1
+              let FlagError=$?
+            else
+              v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
+              let FlagError=$?
+              output=$v
+              if [ "$FlagError" -eq "1" ]
                 then
-                if [[ "$1" == "-" ]]
+                local v=$(codesign -dvvv --verbose "$file" 2>&1)
+                if [[ "$v" == *"Signature=adhoc"* ]]
+                  then
+                  if [[ "$1" == "-" ]]
+                    then
+                    let FlagError=0
+                  else
+                    v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
+                    let FlagError=$?
+        
+                    output=$v
+                  fi
+                elif [[ "$v" == *"Authority="* ]] #Check if already signed
                   then
                   let FlagError=0
-                else
-                  v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
-                  let FlagError=$?
-      
-                  output=$v
                 fi
-              elif [[ "$v" == *"Authority="* ]] #Check if already signed
-                then
-                let FlagError=0
               fi
+                echo $output 2>&1
             fi
-              echo $output 2>&1
           fi
-        fi
-        return $FlagError
-      }
+          return $FlagError
+        }
       
       shell: bash  
       env:
