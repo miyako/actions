@@ -9,7 +9,7 @@ inputs:
       type: string  
 outputs: 
     compiler_component_path:
-      value: ${{ steps.setup.outputs.compiler_component_path }}
+      value: ${{ steps.get.outputs.compiler_component_path }}
     
 runs:
   using: "composite"
@@ -39,3 +39,10 @@ runs:
     with:
       repository: miyako/4d-class-compiler
       path: ${{ env.compiler_component_path }}
+
+   - id: get  
+      run: |
+        echo "compiler_component_path=${COMPILER_COMPONENT_PATH}" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        COMPILER_COMPONENT_PATH: ${{ env.compiler_component_path }}
