@@ -1,1 +1,27 @@
+name: Build Component
+description: 
+inputs:
+  build_dir:
+    required: true
+    type: string
+  build_project_path:
+    required: true
+    type: string
+    
+runs:
+  using: "composite"
+  steps:
 
+  - name: checkout compiler repo
+    uses: actions/checkout@v4
+    with:
+      repository: miyako/4d-class-compiler
+      path: compiler
+
+   - name: compile project
+    run: |
+      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=component --user-param="${PWD}/${BUILD_PROJECT_PATH},../../${BUILD_DIR}" --dataless
+    shell: bash     
+    env: 
+      BUILD_DIR: ${{ inputs.build_dir }}
+      BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}      
