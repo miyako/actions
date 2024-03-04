@@ -13,6 +13,9 @@ inputs:
   LogPath:
     required: true
     type: string
+  keychain:
+    required: true
+    type: string
     
 runs:
   using: "composite"
@@ -47,10 +50,10 @@ runs:
         then
         if [ "$force" = true ]
         then
-        codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" "$file" 2>&1
+        codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" --keychain "$keychain" "$file" 2>&1
         let FlagError=$?
         else
-        v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
+        v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' --keychain '$keychain' '$file' 2>&1")
         let FlagError=$?
         output=$v
         if [ "$FlagError" -eq "1" ]
@@ -62,7 +65,7 @@ runs:
         then
         let FlagError=0
         else
-        v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
+        v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' --keychain '$keychain' '$file' 2>&1")
         let FlagError=$?
         
         output=$v
@@ -209,4 +212,5 @@ runs:
         nameCertificat: ${{ inputs.nameCertificat }}
         PathApp: ${{ inputs.PathApp }}
         LogPath: ${{ inputs.LogPath }}
+        keychain: ${{ inputs.keychain }}
         
