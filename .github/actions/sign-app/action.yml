@@ -13,3 +13,13 @@ inputs:
   LogPath:
     required: true
     type: string
+    
+runs:
+  using: "composite"
+  steps:
+  
+    - name: sign
+      run: |
+      shell: bash  
+      env:
+        TOOL4D_URL: -
