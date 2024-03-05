@@ -48,7 +48,7 @@ runs:
       run: |
         DMG_PATH="${path}.dmg"
         rm -f "${DMG_PATH}"
-        hdiutil create -format UDBZ -plist -srcfolder "${DMG_PATH}"
+        hdiutil create -format UDBZ -plist -srcfolder "${path}" "${DMG_PATH}"
         echo "dmg_path=${DMG_PATH}" >> $GITHUB_OUTPUT
       shell: bash  
       env:
