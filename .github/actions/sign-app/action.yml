@@ -22,16 +22,47 @@ runs:
   steps:
   
     - name: sign
+      continue-on-error: true
       run: |
+        
+        #*******************************************************************
+        #Script permettant la signature d'une application
+        # Parametres :
+        # 1 : Nom du certificat
+        # 2 : Chemin de l'application
+        #
+        #Retour 0 quand tous c'est bien passé
+        #ou Autre quand il y a une erreur
+        #*******************************************************************
+        
+        #*******************************************************************
+        # function permettant de signer un fichier
+        # Parametres :
+        # 1 : Flag permettant de retourner l'erreur
+        # 2 : Nom du certificat
+        # 3 : Chemin du fichier
+        # 4 : Chemin du fichier 4D.entitlements (for .app only)
+        #
+        # Retour : Renvoi du flag d'erreur
+        #*******************************************************************
         files=()
+        
+        nameCertificat=$1
+        PathApp=$2
+        Entitlements=$3
+        LogPath=$4
+        boolError=0
+        
         filesToSign=('app' 'dylib' 'framework' 'so' 'bundle' 'plugin')
         foldersToCheck=('Contents/Library/LaunchServices')
         commands=""
         IFS=$'
         '
+        
         function PrepareCommand ()
         {
         commands="find '$1'"
+        
         for (( idx=0; idx<${#filesToSign[@]} ; idx++ )) ; do
         if [ $idx -ne 0 ]; then
         commands+=' -o'
@@ -39,6 +70,7 @@ runs:
         commands+=" -name '*.${filesToSign[idx]}'"
         done
         }
+        
         function SignFile ()
         {
         local CertifName="$1"
@@ -50,10 +82,10 @@ runs:
         then
         if [ "$force" = true ]
         then
-        codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" --keychain "$keychain" "$file" 2>&1
+        codesign -f --sign "$CertifName" --verbose --timestamp --options runtime --entitlements "$Entitlements" "$file" 2>&1
         let FlagError=$?
         else
-        v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' --keychain '$keychain' '$file' 2>&1")
+        v=$(eval "codesign --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
         let FlagError=$?
         output=$v
         if [ "$FlagError" -eq "1" ]
@@ -65,7 +97,7 @@ runs:
         then
         let FlagError=0
         else
-        v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' --keychain '$keychain' '$file' 2>&1")
+        v=$(eval "codesign -f --sign '$CertifName' --verbose --timestamp --options runtime --entitlements '$Entitlements' '$file' 2>&1")
         let FlagError=$?
         
         output=$v
@@ -80,6 +112,7 @@ runs:
         fi
         return $FlagError
         }
+        
         function Sign ()
         {
         
@@ -195,7 +228,7 @@ runs:
         return $globalError
         
         }
-
+        
         if [[ "${PathApp}" == *".4dbase"* ]]
         then
         SignComponent $boolError "${nameCertificat}" "${PathApp}" "${Entitlements}" "${LogPath}"
@@ -206,6 +239,7 @@ runs:
         boolError=$?
         exit $boolError
 
+        
       shell: bash  
       env:
         Entitlements: ${{ inputs.Entitlements }}
