@@ -21,7 +21,8 @@ inputs:
     type: string 
     
 outputs:
-  dmg_path: ${{ steps.hdiutil.outputs.dmg_path }}
+  dmg_path: 
+    value: ${{ steps.hdiutil.outputs.dmg_path }}
 
 runs:
   using: "composite"
