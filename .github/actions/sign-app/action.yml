@@ -34,7 +34,7 @@ runs:
       run: |
         IFS=$'\n'; set -f
         for f in $(find "${path}" -type f \( -perm +111 -o -name "*.dylib" -o -name "*.js" -o -name "*.json" -o -name "*.html" \) | sort -r )
-        do codesign --verbose --options=runtime --timestamp --force --sign "#{sign}" --keychain ${keychain}; 
+        do codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain}; 
         done
         unset IFS; set +f
       shell: bash  
