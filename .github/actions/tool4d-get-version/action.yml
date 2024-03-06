@@ -18,20 +18,22 @@ outputs:
      
 runs:
   using: "composite"
-  steps:      
-    run: |
-      platform=$(cat ./package.json | jq -r tool.platform)
-      echo "platform=${platform}" >> $GITHUB_OUTPUT
-      
-      branch=$(cat ./package.json | jq -r tool.branch)
-      echo "branch=${branch}" >> $GITHUB_OUTPUT
-      
-      version=$(cat ./package.json | jq -r tool.version)
-      echo "version=${version}" >> $GITHUB_OUTPUT
-      
-      build=$(cat ./build.json | jq -r tool.build)
-      echo "build=${build}" >> $GITHUB_OUTPUT
-      
-      arch=$(cat ./package.json | jq -r tool.arch)
-      echo "arch=${arch}" >> $GITHUB_OUTPUT
-    shell: bash  
+  steps:   
+    - name: get values
+      id: get
+      run: |
+         platform=$(cat ./package.json | jq -r tool.platform)
+         echo "platform=${platform}" >> $GITHUB_OUTPUT
+         
+         branch=$(cat ./package.json | jq -r tool.branch)
+         echo "branch=${branch}" >> $GITHUB_OUTPUT
+         
+         version=$(cat ./package.json | jq -r tool.version)
+         echo "version=${version}" >> $GITHUB_OUTPUT
+         
+         build=$(cat ./build.json | jq -r tool.build)
+         echo "build=${build}" >> $GITHUB_OUTPUT
+         
+         arch=$(cat ./package.json | jq -r tool.arch)
+         echo "arch=${arch}" >> $GITHUB_OUTPUT
+         shell: bash  
