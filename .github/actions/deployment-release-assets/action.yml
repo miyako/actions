@@ -33,7 +33,7 @@ runs:
      id: dmg
      run: |
        fullname=${path##*/}
-       echo "name=${name}" >> $GITHUB_OUTPUT
+       echo "fullname=${fullname}" >> $GITHUB_OUTPUT
      env:
        path: ${{ inputs.dmg_path }}
      shell: bash  
@@ -42,7 +42,7 @@ runs:
      id: zip
      run: |
        fullname=${path##*/}
-       echo "name=${name}" >> $GITHUB_OUTPUT
+       echo "fullname=${fullname}" >> $GITHUB_OUTPUT
      shell: bash
      env:
        path: ${{ inputs.zip_path }}
@@ -61,17 +61,13 @@ runs:
      with:
        upload_url: ${{ steps.release.outputs.upload_url }}
        asset_path: ${{ inputs.dmg_path }}
-       asset_name: ${{ steps.dmg.name }}
+       asset_name: ${{ steps.dmg.fullname }}
        asset_content_type: application/octet-stream 
-     env:
-       GITHUB_TOKEN: ${{env.GITHUB_TOKEN }}
 
    - name: upload zip
      uses: actions/upload-release-asset@v1
      with:
        upload_url: ${{ steps.release.outputs.upload_url }}
        asset_path: ${{ inputs.zip_path }}
-       asset_name: ${{ steps.zip.name }}
+       asset_name: ${{ steps.zip.fullname }}
        asset_content_type: application/zip
-     env:
-       GITHUB_TOKEN: ${{env.GITHUB_TOKEN }}  
