@@ -30,7 +30,6 @@ runs:
 
     - name: create zip 
       id: create
-      if: ${{env.RUNNER_OS == 'macOS' }}
       run: |
         mountpoint="${RUNNER_TEMP}/mountpoint"
         folder_path="${RUNNER_TEMP}/${name}"
