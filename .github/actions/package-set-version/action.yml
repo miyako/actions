@@ -49,3 +49,4 @@ runs:
         path="${GITHUB_WORKSPACE}/package.json"
         version=`cat package.json | jq -r '.version'`
         echo "version=${version}" >> $GITHUB_OUTPUT
+      shell: bash  
