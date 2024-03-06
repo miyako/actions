@@ -34,7 +34,6 @@ runs:
      run: |
        fullname=${path##*/}
        echo "name=${name}" >> $GITHUB_OUTPUT
-       shell: bash
      env:
        path: ${{ inputs.dmg_path }}
      shell: bash  
