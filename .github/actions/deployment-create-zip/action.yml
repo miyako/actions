@@ -22,7 +22,8 @@ runs:
     - name: get name
       id: get
       run: |
-        echo "name=${path%.*}" >> $GITHUB_OUTPUT
+        name=${path%.*}
+        echo "name=${name}" >> $GITHUB_OUTPUT
       shell: bash
       env:
         path: ${{ inputs.dmg_path }}
