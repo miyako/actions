@@ -61,7 +61,7 @@ runs:
      with:
        upload_url: ${{ steps.release.outputs.upload_url }}
        asset_path: ${{ inputs.dmg_path }}
-       asset_name: ${{ steps.dmg.fullname }}
+       asset_name: ${{ steps.dmg.outputs.fullname }}
        asset_content_type: application/octet-stream 
 
    - name: upload zip
@@ -69,5 +69,5 @@ runs:
      with:
        upload_url: ${{ steps.release.outputs.upload_url }}
        asset_path: ${{ inputs.zip_path }}
-       asset_name: ${{ steps.zip.fullname }}
+       asset_name: ${{ steps.zip.outputs.fullname }}
        asset_content_type: application/zip
