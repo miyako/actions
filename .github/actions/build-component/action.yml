@@ -1,15 +1,14 @@
 name: Build Component
 description: 
 inputs:
-  build_dir:
-    required: true
-    type: string
-  build_project_path:
+  project_path:
     required: true
     type: string
 outputs: 
-  component_path:
-    value: ${{ steps.get.outputs.component_path }}
+  project_path:
+    value: ${{ inputs.project_path }}
+  product_path:
+    value: ${{ steps.build.outputs.product_path }}
       
 runs:
   using: "composite"
@@ -21,16 +20,11 @@ runs:
       repository: miyako/4d-class-compiler
       path: compiler
 
-  - name: compile project
-    id: compile
+  - name: build project
+    id: build
     run: |
-      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=component --user-param="${PWD}/${BUILD_PROJECT_PATH},../../${BUILD_DIR}" --dataless
+      tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=component --user-param="${PROJECT_PATH},../../" --dataless
+      echo "product_path=${GITHUB_WORKSPACE}/Components" >> $GITHUB_OUTPUT
     shell: bash     
     env: 
-      BUILD_DIR: ${{ inputs.build_dir }}
-      BUILD_PROJECT_PATH: ${{ inputs.build_project_path }}      
-
-  - id: get  
-    run: |
-      echo "component_path=$BUILD_DIR/Components" >> $GITHUB_OUTPUT
-    shell: bash
+      PROJECT_PATH: ${{ inputs.project_path }}      
