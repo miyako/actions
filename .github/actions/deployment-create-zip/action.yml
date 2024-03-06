@@ -19,7 +19,7 @@ runs:
       run: |
         echo "name=${path%.*}" >> $GITHUB_OUTPUT
       shell: bash
-      with:
+      env:
         path: ${{ inputs.dmg_path }}
 
     - name: create zip 
@@ -37,6 +37,6 @@ runs:
         ls "${GITHUB_WORKSPACE}"
         echo "zip_path=${zip_path}" >> $GITHUB_OUTPUT
       shell: bash
-      with:
+      env:
         dmg_path: ${{ inputs.dmg_path }}
         name: ${{ steps.get.name }}
