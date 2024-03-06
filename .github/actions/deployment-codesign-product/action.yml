@@ -33,16 +33,16 @@ runs:
   steps:
 
     - name: setup
-        id: setup
-        run: |
-          fullname=${path##*/}
-          name=${fullname%.*}
-          echo "name=${name}" >> $GITHUB_OUTPUT
-          echo "dmg_path=${GITHUB_WORKSPACE}/${name}.dmg" >> $GITHUB_OUTPUT
-          echo "zip_path=${GITHUB_WORKSPACE}/${name}.zip" >> $GITHUB_OUTPUT
-        shell: bash
-        env:
-          path: ${{ inputs.product_path }}
+      id: setup
+      run: |
+        fullname=${path##*/}
+        name=${fullname%.*}
+        echo "name=${name}" >> $GITHUB_OUTPUT
+        echo "dmg_path=${GITHUB_WORKSPACE}/${name}.dmg" >> $GITHUB_OUTPUT
+        echo "zip_path=${GITHUB_WORKSPACE}/${name}.zip" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        path: ${{ inputs.product_path }}
   
     - name: codesign
       id: codesign
