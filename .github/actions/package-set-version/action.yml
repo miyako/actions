@@ -1,10 +1,9 @@
 name: Set Package Version
 description: Write updated version code to package.json
 inputs:
-   inputs:
-      mode: 
-        required: true
-        type: string
+   mode: 
+     required: true
+     type: string
 outputs:
    version:
      value: ${{ steps.set.outputs.version }}
