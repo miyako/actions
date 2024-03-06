@@ -1,4 +1,4 @@
-name: Get Tool version
+name: Get Tool Version
 description: Read tool4d version parameters from package.json
 inputs:
    build_project_name: 
