@@ -39,4 +39,4 @@ runs:
       shell: bash
       env:
         dmg_path: ${{ inputs.dmg_path }}
-        name: ${{ steps.get.name }}
+        name: ${{ steps.get.outputs.name }}
