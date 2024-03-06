@@ -1,4 +1,4 @@
-name: Get Tool
+name: Download tool4d
 description: Download tool4d for the current platform
 inputs:
   platform:
