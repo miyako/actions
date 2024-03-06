@@ -34,7 +34,6 @@ runs:
         cp -a "${mountpoint}" "${folder_path}"
         ditto -c -k "${folder_path}" "${zip_path}"
         diskutil unmount "${mountpoint}"
-        ls "${GITHUB_WORKSPACE}"
         echo "zip_path=${zip_path}" >> $GITHUB_OUTPUT
       shell: bash
       env:
