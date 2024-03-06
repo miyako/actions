@@ -25,6 +25,8 @@ outputs:
     value: ${{ inputs.product_path }}
   dmg_path: 
     value: ${{ steps.setup.outputs.dmg_path }}
+  zip_path: 
+    value: ${{ steps.setup.outputs.zip_path }}  
 
 runs:
   using: "composite"
@@ -37,6 +39,7 @@ runs:
           name=${fullname%.*}
           echo "name=${name}" >> $GITHUB_OUTPUT
           echo "dmg_path=${GITHUB_WORKSPACE}/${name}.dmg" >> $GITHUB_OUTPUT
+          echo "zip_path=${GITHUB_WORKSPACE}/${name}.zip" >> $GITHUB_OUTPUT
         shell: bash
         env:
           path: ${{ inputs.product_path }}
