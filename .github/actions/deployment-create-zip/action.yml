@@ -4,11 +4,16 @@ inputs:
    dmg_path: 
      required: true
      type: string
+   zip_path: 
+     required: true
+     type: string     
 outputs:
    dmg_path:
      value: ${{ inputs.dmg_path }}
    zip_path:
      value: ${{ steps.create.outputs.zip_path }}
+   name:
+     value: ${{ steps.get.outputs.name }}
 
 runs:
   using: "composite"
@@ -28,8 +33,6 @@ runs:
       run: |
         mountpoint="${RUNNER_TEMP}/mountpoint"
         folder_path="${RUNNER_TEMP}/${name}"
-        dmg_path="${GITHUB_WORKSPACE}/${name}.dmg"
-        zip_path="${GITHUB_WORKSPACE}/${name}.zip"
         hdiutil attach -nobrowse -noverify "${dmg_path}" -mountpoint "${mountpoint}"
         cp -a "${mountpoint}" "${folder_path}"
         ditto -c -k "${folder_path}" "${zip_path}"
@@ -38,4 +41,5 @@ runs:
       shell: bash
       env:
         dmg_path: ${{ inputs.dmg_path }}
+        zip_path: ${{ inputs.zip_path }}
         name: ${{ steps.get.outputs.name }}
