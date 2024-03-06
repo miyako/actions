@@ -37,6 +37,7 @@ runs:
        shell: bash
        env:
        path: ${{ inputs.dmg_path }}
+     shell: bash  
 
    - name: get zip name
      id: zip
@@ -46,6 +47,7 @@ runs:
        shell: bash
      env:
        path: ${{ inputs.zip_path }}
+     shell: bash  
         
    - name: create release
      id: release
@@ -57,6 +59,7 @@ runs:
        release_name: ${{ inputs.release_name }}
        draft: false
        prerelease: false 
+     shell: bash  
 
    - name: upload dmg
      uses: actions/upload-release-asset@v1
@@ -66,7 +69,8 @@ runs:
          upload_url: ${{ steps.release.outputs.upload_url }}
          asset_path: ${{ inputs.dmg_path }}
          asset_name: ${{ steps.dmg.name }}
-         asset_content_type: application/octet-stream   
+         asset_content_type: application/octet-stream 
+       shell: bash  
 
    - name: upload zip
      uses: actions/upload-release-asset@v1
@@ -77,3 +81,4 @@ runs:
          asset_path: ${{ inputs.zip_path }}
          asset_name: ${{ steps.zip.name }}
          asset_content_type: application/zip
+       shell: bash
