@@ -36,4 +36,4 @@ runs:
          
          arch=$(cat ./package.json | jq -r tool.arch)
          echo "arch=${arch}" >> $GITHUB_OUTPUT
-         shell: bash  
+      shell: bash  
