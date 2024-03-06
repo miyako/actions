@@ -19,7 +19,6 @@ inputs:
   product_path:
     required: true
     type: string 
-    
 outputs:
   product_path: 
     value: ${{ inputs.product_path }}
@@ -63,7 +62,7 @@ runs:
       id: hdiutil
       run: |
         rm -f "${dmg_path}"
-        hdiutil create -format UDBZ -plist -srcfolder "${path}" "${dmg_path}"
+        hdiutil create -format UDBZ -plist -srcfolder "${product_path}" "${dmg_path}"
       shell: bash  
       env:
         product_path: ${{ inputs.product_path }}
