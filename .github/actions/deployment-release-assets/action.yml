@@ -44,7 +44,7 @@ runs:
      run: |
        fullname=${path##*/}
        echo "name=${name}" >> $GITHUB_OUTPUT
-       shell: bash
+     shell: bash
      env:
        path: ${{ inputs.zip_path }}
         
@@ -56,7 +56,6 @@ runs:
        release_name: ${{ inputs.release_name }}
        draft: false
        prerelease: false 
-     shell: bash  
 
    - name: upload dmg
      uses: actions/upload-release-asset@v1
