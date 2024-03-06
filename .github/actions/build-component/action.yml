@@ -14,6 +14,16 @@ runs:
   using: "composite"
   steps:
 
+  - name: get name
+    id: get
+    run: |
+      fullname=${path##*/}
+      name=${fullname%.*}
+      echo "name=${name}" >> $GITHUB_OUTPUT
+    shell: bash
+    env:
+      path: ${{ inputs.project_path }}
+
   - name: checkout compiler repo
     uses: actions/checkout@v4
     with:
@@ -24,7 +34,8 @@ runs:
     id: build
     run: |
       tool4d.app/Contents/MacOS/tool4d ./compiler/Project/compiler.4DProject --skip-onstartup --startup-method=component --user-param="${PROJECT_PATH},../../" --dataless
-      echo "product_path=${GITHUB_WORKSPACE}/Components" >> $GITHUB_OUTPUT
+      echo "product_path=${GITHUB_WORKSPACE}/Components/${NAME}.4dbase" >> $GITHUB_OUTPUT
     shell: bash     
     env: 
-      PROJECT_PATH: ${{ inputs.project_path }}      
+      PROJECT_PATH: ${{ inputs.project_path }}   
+      NAME: ${{ steps.get.outputs.name }} 
