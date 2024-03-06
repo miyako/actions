@@ -1,0 +1,19 @@
+name: Create Release and Upload Files
+description: Upload .zip and .dmg to Releases
+inputs:
+   dmg_path: 
+     required: true
+     type: string
+   zip_path: 
+     required: true
+     type: string  
+   version: 
+     required: true
+     type: string      
+outputs:
+   dmg_path:
+     value: ${{ inputs.dmg_path }}
+   zip_path:
+     value: ${{ inputs.zip_path }}
+   version:
+     value: ${{ inputs.version }}
