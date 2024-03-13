@@ -20,7 +20,7 @@ Create a new release for the current repository.
 * inputs: `version`: release name, tag name
 * outputs: `upload_url`: the url to upload assets 
 
-# [Get Tool](https://github.com/miyako/4D/blob/v1/.github/actions/get-tool/action.yml) action
+# [Download tool4d](https://github.com/miyako/4D/blob/v1/.github/actions/tool4d-download/action.yml) action
 
 Cross-platfrom workflow to download `tool4d` from 4D.com.
 
