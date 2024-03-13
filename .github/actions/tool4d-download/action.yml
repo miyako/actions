@@ -103,7 +103,7 @@ runs:
       if: ${{ env.platform }}
       run: |          
         curl "${TOOL4D_DOWNLOAD_URL}" -o tool4d.tar.xz -sL
-        tar xvJf tool4d.tar.xz
+        tar xJf tool4d.tar.xz
       shell: bash
       env:
         TOOL4D_DOWNLOAD_URL: ${{ env.TOOL4D_DOWNLOAD_URL }}
