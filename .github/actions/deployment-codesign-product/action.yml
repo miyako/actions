@@ -48,7 +48,7 @@ runs:
       continue-on-error: true
       run: |
         IFS=$'\n'; set -f
-        for f in $(find "${product_path}" -type f \( -perm +111 -o -name "*.dylib" -o -name "*.js" -o -name "*.json" -o -name "*.html" \) | sort -r )
+        for f in $(find "${product_path}" -type f \( -perm +111 -o -name "*.dylib" -o -name "*.js" -o -name "*.json" -o -name "*.html" -o -name "*.app" -o -name "*.framework" -o -name "*.so" -o -name "*.bundle"  -o -name "*.plugin" -o -name "*.kext" \) | sort -r )
         do codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain} "${f}"; 
         done
         unset IFS; set +f
