@@ -59,7 +59,7 @@ runs:
         sign: ${{ inputs.sign }}
         keychain: ${{ inputs.keychain }}
         product_path: ${{ inputs.product_path }}
-        entitlements_path: ${{ inputs.entitlements_path }}
+        entitlements_path: ${{ steps.setup.outputs.entitlements_path }}
         
     - name: hdiutil
       id: hdiutil
