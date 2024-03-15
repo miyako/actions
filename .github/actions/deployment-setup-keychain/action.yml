@@ -16,8 +16,6 @@ outputs:
      value: ${{ steps.setup.outputs.KEYCHAIN_PATH }}
    CERTIFICATE_PATH:
      value: ${{ steps.setup.outputs.CERTIFICATE_PATH }}
-   KEYCHAIN_PATH:
-     value: ${{ steps.setup.outputs.KEYCHAIN_PATH }}
      
 runs:
    using: "composite"
