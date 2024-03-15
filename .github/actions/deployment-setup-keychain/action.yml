@@ -23,7 +23,6 @@ runs:
 
     - name: setup keychain
       id: setup
-      if: ${{ contains(runner.name, 'Github Actions') }}
       run: |        
         CERTIFICATE_PATH="${RUNNER_TEMP}/Developer ID Application.p12"
         echo "CERTIFICATE_PATH=${CERTIFICATE_PATH}" >> $GITHUB_OUTPUT 
@@ -31,7 +30,6 @@ runs:
         echo "KEYCHAIN_PATH=${KEYCHAIN_PATH}" >> $GITHUB_OUTPUT
         echo -n "${APPLE_DEVELOPER_ID_CERTIFICATE}" | base64 --decode -o "${CERTIFICATE_PATH}"
         security create-keychain -p "${KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
-        security default-keychain -s "${KEYCHAIN_PATH}"
         security set-keychain-settings -t 21600 "${KEYCHAIN_PATH}"
         security unlock-keychain -p "{$KEYCHAIN_PASSWORD}" "${KEYCHAIN_PATH}"
         security import "${CERTIFICATE_PATH}" -P "${APPLE_DEVELOPER_ID_CERTIFICATE_PASSWORD}" -t cert -f pkcs12 -k "${KEYCHAIN_PATH}" -T /usr/bin/codesign
@@ -41,3 +39,9 @@ runs:
         APPLE_DEVELOPER_ID_CERTIFICATE_PASSWORD: ${{ inputs.APPLE_DEVELOPER_ID_CERTIFICATE_PASSWORD }}
         KEYCHAIN_PASSWORD: ${{ inputs.KEYCHAIN_PASSWORD }}
       shell: bash 
+      
+    - name: set default
+      id: default      
+      if: ${{ contains(runner.name, 'Github Actions') }}
+      run: |  
+        security default-keychain -s "${KEYCHAIN_PATH}"
