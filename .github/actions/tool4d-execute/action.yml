@@ -160,11 +160,11 @@ runs:
   - name: windows
     if: ${{ runner.os == 'windows' }}
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless
     shell: bash
     env:
       TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
-      PROJECT_PATH: ${{ inputs.project_path }}  
+      TOOL4D_PROJECT_PATH: ${{ inputs.project_path }}  
       PROJECT_STARTUP_METHOD: ${{ inputs.startup_method }}  
 
   - name: test
@@ -172,7 +172,4 @@ runs:
     run: |
       ls .
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
-    shell: bash 
-    env:
-      windows_tool4d_executable_path: ${{steps.win.outputs.windows_tool4d_executable_path }}
-      windows_project_path: ${{steps.win.outputs.windows_project_path }}
+    shell: bash
