@@ -80,7 +80,7 @@ runs:
     id: mac
     if: ${{ runner.os == 'macos' }}
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup_method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
       echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash -c "bash -e {0} 1> >(tee stdout.log >&1) 2> >(tee stderr.log >&2)"
