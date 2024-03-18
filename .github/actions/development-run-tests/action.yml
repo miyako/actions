@@ -16,3 +16,8 @@ inputs:
   create_data: 
     dataless: false
     type: boolean
+outputs:
+  stdout: 
+    value: ${{ steps.test.outputs.stdout }}
+  stderr: 
+    value: ${{ steps.test.outputs.stderr }}  
