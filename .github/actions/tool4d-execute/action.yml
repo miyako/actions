@@ -100,7 +100,7 @@ runs:
     run: |
       `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
-    shell: powershell -command "powershell '{0}' 2>stderr.log" 
+    shell: powershell -command "powershell . '{0}' 2>stderr.log" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
