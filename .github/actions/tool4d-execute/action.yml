@@ -42,27 +42,33 @@ runs:
     id: setup
     run: |
       if [ "${startup_method}" != '' ]; then
-      tool4d_arguments=--startup-method=""\"""${startup_method}""\"
+      startup_method=--startup-method=""\"""${startup_method}""\"
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
-      tool4d_arguments="${tool4d_arguments} --skip-onstartup"
+      skip_onstartup="--skip-onstartup"
       fi
       if [ "${create_data}" = 'true' ]; then
-      tool4d_arguments="${tool4d_arguments} --create-data"
+      create_data="--create-data"
       fi  
       if [ "${dataless}" = 'true' ]; then
-      tool4d_arguments="${tool4d_arguments} --dataless"
+      dataless="--dataless"
       fi
       if [ "${utility}" = 'true' ]; then
-      tool4d_arguments="${tool4d_arguments} --utility"
+      utility="--utility"
       fi      
       if [ "${user_param}" != '' ]; then
-      tool4d_arguments=--user-param=""\"""${user_param}""\"
+      user_param=--user-param=""\"""${user_param}""\"
       fi      
       if [ "${data}" != '' ]; then
-      tool4d_arguments=--data=""\"""${data}""\"
+      data=--data=""\"""${data}""\"
       fi      
-      echo "tool4d_arguments=${tool4d_arguments}" >> $GITHUB_OUTPUT
+      echo "startup_method=${startup_method}" >> $GITHUB_OUTPUT
+      echo "skip_onstartup=${skip_onstartup}" >> $GITHUB_OUTPUT
+      echo "create_data=${create_data}" >> $GITHUB_OUTPUT
+      echo "dataless=${dataless}" >> $GITHUB_OUTPUT
+      echo "utility=${utility}" >> $GITHUB_OUTPUT
+      echo "user_param=${user_param}" >> $GITHUB_OUTPUT
+      echo "data=${data}" >> $GITHUB_OUTPUT
     shell: bash  
     env:
       startup_method: ${{ inputs.startup_method }}
@@ -74,14 +80,33 @@ runs:
     id: mac
     if: ${{ runner.os == 'macos' }}
     run: |
-      `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" "${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" "${user_param}" "${data}"
       echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash -c "bash -e {0} 1> >(tee stdout.log >&1) 2> >(tee stderr.log >&2)"
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
-      tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
       project_path: ${{ inputs.project_path }}        
+      startup_method: ${{ steps.setup.outputs.startup_method }}
+      skip_onstartup: ${{ steps.setup.outputs.skip_onstartup }}
+      create_data: ${{ steps.setup.outputs.create_data }}
+      dataless: ${{ steps.setup.outputs.dataless }}
+      utility: ${{ steps.setup.outputs.utility }}
+      user_param: ${{ steps.setup.outputs.user_param }}
+      data: ${{ steps.setup.outputs.data }}
+      
+  - name: win
+    id: win
+    if: ${{ runner.os == 'windows' }}
+    run: |
+      `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
+      echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
+      echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
+    shell: pwsh -command "pwsh . '{0}' 2>&2 | Tee-Object 'stderr.log'" 
+    env:
+      tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
+      tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
+      project_path: ${{ inputs.project_path }}     
 
   - name: test
     id: test     
