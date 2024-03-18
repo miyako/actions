@@ -58,7 +58,29 @@ runs:
       create_data: ${{ inputs.create_data }}
       dataless: ${{ inputs.dataless }}
 
-  - name: tool
+  - name: mac
+    if: ${{ runner.os == 'macos' }}
+    run: |
+      if [ "${TOOL4D_ARG_CREATE_DATA}" != '' ]; then
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data
+      elif  [ "${TOOL4D_ARG_DATALESS}" != '' ]; then
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --dataless
+      elif  [ "${TOOL4D_ARG_DATA}" != '' ]; then
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --data="${TOOL4D_ARG_DATA}"  
+      fi
+    shell: bash -c "bash -e {0} 2>stderr.log"
+    env:
+      TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
+      TOOL4D_PROJECT_PATH: ${{ inputs.project_path }}  
+      TOOL4D_PROJECT_STARTUP_METHOD: ${{ inputs.startup_method }}  
+      TOOL4D_ARG_USER_PARAM: ${{ inputs.user_param }}
+      TOOL4D_ARG_DATA: ${{ inputs.data }}
+      TOOL4D_ARG_SKIP_ONSTARTUP: ${{ steps.setup.outputs.skip_onstartup }}
+      TOOL4D_ARG_CREATE_DATA: ${{ steps.setup.outputs.create_data }}
+      TOOL4D_ARG_DATALESS: ${{ steps.setup.outputs.dataless }}
+      
+  - name: mac
+    if: ${{ runner.os == 'windows' }}
     run: |
       if [ "${TOOL4D_ARG_CREATE_DATA}" != '' ]; then
       "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data
@@ -76,7 +98,7 @@ runs:
       TOOL4D_ARG_DATA: ${{ inputs.data }}
       TOOL4D_ARG_SKIP_ONSTARTUP: ${{ steps.setup.outputs.skip_onstartup }}
       TOOL4D_ARG_CREATE_DATA: ${{ steps.setup.outputs.create_data }}
-      TOOL4D_ARG_DATALESS: ${{ steps.setup.outputs.dataless }}
+      TOOL4D_ARG_DATALESS: ${{ steps.setup.outputs.dataless }}      
       
   - name: test
     id: test     
