@@ -56,7 +56,8 @@ runs:
   - name: execute startup method
     id: test
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>$${project_path}/../stdout.txt 2>${project_path}/../stderr.txt
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>stdout.txt 2>stderr.txt
+      ls .
       echo "stdout=`cat stdout.txt`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.txt`" >> $GITHUB_OUTPUT
     shell: bash
