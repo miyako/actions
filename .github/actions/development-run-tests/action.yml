@@ -31,20 +31,20 @@ runs:
 
   - name: setup 
     run: |
-      arguments=""
+      tool4d_arguments=""
       if [ "${startup_method}" != '' ]; then
-      arguments="${arguments} --startup_method="\""${startup_method}"\"
+      tool4d_arguments="${tool4d_arguments} --startup_method="\""${startup_method}"\"
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
-      arguments="${arguments} --skip_onstartup"
+      tool4d_arguments="${tool4d_arguments} --skip_onstartup"
       fi
       if [ "${create_data}" = 'true' ]; then
-      arguments="${arguments} --create_data"
+      tool4d_arguments="${tool4d_arguments} --create_data"
       fi  
       if [ "${dataless}" = 'true' ]; then
-      arguments="${arguments} --dataless"
+      tool4d_arguments="${tool4d_arguments} --dataless"
       fi          
-      echo ("arguments=${arguments}") >> $GITHUB_OUTPUT
+      echo ("tool4d_arguments=${tool4d_arguments}") >> $GITHUB_OUTPUT
     shell: bash  
     env:
       startup_method: ${{ inputs.startup_method }}
@@ -61,6 +61,6 @@ runs:
     shell: bash
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
-      arguments: ${{ steps.setup.outputs.arguments }}
+      tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
       project_path: ${{ inputs.project_path }}        
         
