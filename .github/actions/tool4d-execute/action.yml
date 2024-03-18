@@ -98,13 +98,19 @@ runs:
     id: win
     if: ${{ runner.os == 'windows' }}
     run: |
-      `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: powershell -command "powershell . '{0}' 2>stderr.log" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
-      tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
-      project_path: ${{ inputs.project_path }}     
+      project_path: ${{ inputs.project_path }}        
+      startup_method: ${{ steps.setup.outputs.startup_method }}
+      skip_onstartup: ${{ steps.setup.outputs.skip_onstartup }}
+      create_data: ${{ steps.setup.outputs.create_data }}
+      dataless: ${{ steps.setup.outputs.dataless }}
+      utility: ${{ steps.setup.outputs.utility }}
+      user_param: ${{ steps.setup.outputs.user_param }}
+      data: ${{ steps.setup.outputs.data }}   
 
   - name: test
     id: test     
