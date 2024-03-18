@@ -87,11 +87,11 @@ runs:
   - name: mac
     id: mac
     run: |
-      if [ "${create_data}" != '' ]
+      if [ "${create_data}" != '' ]; then
       "${tool4d_executable_path}" "${project_path}" --create-data    --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"
-      elif  [ "${dataless}" != '' ]
+      elif  [ "${dataless}" != '' ]; then
       "${tool4d_executable_path}" "${project_path}" --dataless       --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"   
-      elif [ "${data}" != '' ]
+      elif [ "${data}" != '' ]; then
       "${tool4d_executable_path}" "${project_path}" --data="${data}" --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"         
       fi
     shell: bash -c "bash -e {0} 2>stderr.log"
