@@ -86,7 +86,7 @@ runs:
 
   - name: powershell
     id: powershell
-    if: ${{ runner.os == 'windows' }}
+    if: ${{ runner.os == 'windows!' }}
     run: |
       chcp 65001 
       $tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
@@ -103,7 +103,7 @@ runs:
 
   - name: mac
     id: mac
-    if: ${{ runner.os == 'macos' }}
+    if: ${{ runner.os == 'macos!' }}
     run: |
       if [ "${create_data}" != '' ]; then
       "${tool4d_executable_path}" "${project_path}" --create-data    --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"
@@ -126,7 +126,7 @@ runs:
       
   - name: win
     id: win
-    if: ${{ runner.os == 'windows' }}
+    if: ${{ runner.os == 'windows!' }}
     run: |
       if("$env:create_data" -ne ""){
       & "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param" 2>stderr.log
@@ -146,6 +146,15 @@ runs:
       dataless: ${{ steps.setup.outputs.dataless }}
       utility: ${{ steps.setup.outputs.utility }}
       user_param: ${{ steps.setup.outputs.user_param }}
+
+  - name: dataless, skip onstartup
+    run: |
+        "${TOOL4D_EXECUTABLE_PATH}" "${PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless --skip-onstartup
+    shell: bash -c "bash -e {0} 2>stderr.log"
+    env:
+      TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
+      PROJECT_PATH: ${{ inputs.project_path }}  
+      PROJECT_STARTUP_METHOD: ${{ inputs.startup_method }}  
 
   - name: test
     id: test     
