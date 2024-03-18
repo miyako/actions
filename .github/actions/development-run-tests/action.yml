@@ -32,7 +32,7 @@ runs:
   - name: setup
     id: setup
     run: |
-      tool4d_arguments=""
+      tool4d_arguments="xxx"
       echo "tool4d_arguments=--startup_method=""\"""${startup_method}""\"" >> $GITHUB_OUTPUT
       if [ "${skip_onstartup}" = 'true' ]; then
       echo "tool4d_arguments=${tool4d_arguments} --skip_onstartup" >> $GITHUB_OUTPUT
