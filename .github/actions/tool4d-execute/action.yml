@@ -121,5 +121,5 @@ runs:
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash 
     env:
-      windows_tool4d_executable_path: ${{env.windows_tool4d_executable_path }}
-      windows_project_path: ${{env.windows_project_path }}
+      windows_tool4d_executable_path: ${{steps.win.outputs.windows_tool4d_executable_path }}
+      windows_project_path: ${{steps.win.outputs.windows_project_path }}
