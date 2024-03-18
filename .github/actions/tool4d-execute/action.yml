@@ -76,7 +76,7 @@ runs:
       "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --create-data --startup-method=start --skip-onstartup
       ls .
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
-    shell: bash -c "bash -e {0} 2> >(tee stderr.log >&2)"
+    shell: bash -c "bash -e {0} 1> >(tee stdout.log >&1) 2> >(tee stderr.log >&2)"
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
