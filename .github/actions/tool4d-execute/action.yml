@@ -113,5 +113,6 @@ runs:
   - name: test
     id: test     
     run: |
+      ls .
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash 
