@@ -80,7 +80,7 @@ runs:
     id: mac
     if: ${{ runner.os == 'macos' }}
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
+      "${tool4d_executable_path}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
     shell: bash -c "bash -e {0} 2>stderr.log"
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
@@ -97,7 +97,9 @@ runs:
     id: win
     if: ${{ runner.os == 'windows--' }}
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
+      windows_tool4d_executable_path = Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
+      windows_project_path = Join-Path -Path "$PWD" -ChildPath "$env:project_path"
+      "${windows_tool4d_executable_path}" "${windows_project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
     shell: powershell -command "powershell . '{0}' 2>stderr.log" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
