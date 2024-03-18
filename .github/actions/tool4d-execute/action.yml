@@ -61,11 +61,11 @@ runs:
   - name: tool
     run: |
       if [ "${TOOL4D_ARG_CREATE_DATA}" != '' ]; then
-      "${TOOL4D_EXECUTABLE_PATH}" --project="${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data
       elif  [ "${TOOL4D_ARG_DATALESS}" != '' ]; then
-      "${TOOL4D_EXECUTABLE_PATH}" --project="${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --dataless
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --dataless
       elif  [ "${TOOL4D_ARG_DATA}" != '' ]; then
-      "${TOOL4D_EXECUTABLE_PATH}" --project="${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --data="${TOOL4D_ARG_DATA}"  
+      "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --data="${TOOL4D_ARG_DATA}"  
       fi
     shell: bash -c "bash -e {0} 2>stderr.log"
     env:
