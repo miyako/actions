@@ -43,8 +43,7 @@ runs:
       fi  
       if [ "${dataless}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --dataless"
-      fi    
-      
+      fi
       echo "tool4d_arguments=${tool4d_arguments}" >> $GITHUB_OUTPUT
     shell: bash  
     env:
@@ -56,7 +55,7 @@ runs:
   - name: execute startup method
     id: test
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>stdout.txt 2>stderr.txt
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments} 1>stdout.txt 2>stderr.txt
       ls .
       echo "stdout=`cat stdout.txt`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.txt`" >> $GITHUB_OUTPUT
