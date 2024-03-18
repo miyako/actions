@@ -86,7 +86,6 @@ runs:
 
   - name: mac
     id: mac
-    if: ${{ runner.os == 'macos' }}
     run: |
       if [ "${create_data}" != '' ]
       "${tool4d_executable_path}" "${project_path}" --create-data    --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"
@@ -109,7 +108,7 @@ runs:
       
   - name: win
     id: win
-    if: ${{ runner.os == 'windows' }}
+    if: ${{ runner.os == 'windows!' }}
     run: |
       chcp 65001 #set code page to utf-8
       $windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
