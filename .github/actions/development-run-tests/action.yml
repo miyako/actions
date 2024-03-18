@@ -33,7 +33,7 @@ runs:
     run: |
       tool4d_arguments=""
       if [ "${startup_method}" != '' ]; then
-      tool4d_arguments="${tool4d_arguments} --startup_method=${startup_method}"
+      echo "tool4d_arguments=${tool4d_arguments} --startup_method=\"${startup_method}\""
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --skip_onstartup"
