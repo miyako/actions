@@ -95,7 +95,7 @@ runs:
       
   - name: win
     id: win
-    if: ${{ runner.os == 'windows--' }}
+    if: ${{ runner.os == 'windows' }}
     run: |
       windows_tool4d_executable_path = Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
       windows_project_path = Join-Path -Path "$PWD" -ChildPath "$env:project_path"
