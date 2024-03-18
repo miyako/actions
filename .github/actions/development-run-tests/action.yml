@@ -10,6 +10,12 @@ inputs:
   startup_method: 
     required: false
     type: string
+  user_param: 
+    required: false
+    type: string  
+  data: 
+    required: false
+    type: string      
   skip_onstartup: 
     required: false
     type: boolean  
@@ -19,6 +25,9 @@ inputs:
   dataless: 
     dataless: false
     type: boolean
+  utility: 
+    utility: false
+    type: boolean    
 outputs:
   stdout: 
     value: ${{ steps.test.outputs.stdout }}
@@ -44,6 +53,15 @@ runs:
       if [ "${dataless}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --dataless"
       fi
+      if [ "${utility}" = 'true' ]; then
+      tool4d_arguments="${tool4d_arguments} --utility"
+      fi      
+      if [ "${user_param}" != '' ]; then
+      tool4d_arguments=--user-param=""\"""${user_param}""\"
+      fi      
+      if [ "${data}" != '' ]; then
+      tool4d_arguments=--data=""\"""${data}""\"
+      fi      
       echo "tool4d_arguments=${tool4d_arguments}" >> $GITHUB_OUTPUT
     shell: bash  
     env:
