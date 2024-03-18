@@ -29,7 +29,8 @@ runs:
   using: "composite"
   steps:
 
-  - name: setup 
+  - name: setup
+    id: setup
     run: |
       tool4d_arguments=""
       if [ "${startup_method}" != '' ]; then
@@ -55,7 +56,7 @@ runs:
   - name: execute startup method
     id: test
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${arguments} 1>stdout.txt 2>stderr.txt
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>stdout.txt 2>stderr.txt
       echo ("stdout=`cat stdout.txt`") >> $GITHUB_OUTPUT
       echo ("stderr=`cat stderr.txt`") >> $GITHUB_OUTPUT
     shell: bash
