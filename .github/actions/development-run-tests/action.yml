@@ -34,16 +34,16 @@ runs:
     run: |
       tool4d_arguments=""
       if [ "${startup_method}" != '' ]; then
-      echo "tool4d_arguments=${tool4d_arguments}--startup_method=\"${startup_method}\" " >> $GITHUB_OUTPUT
+      echo "tool4d_arguments=${tool4d_arguments} --startup_method=\"${startup_method}\"" >> $GITHUB_OUTPUT
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
-      echo "tool4d_arguments=${tool4d_arguments}--skip_onstartup " >> $GITHUB_OUTPUT
+      echo "tool4d_arguments=${tool4d_arguments} --skip_onstartup" >> $GITHUB_OUTPUT
       fi
       if [ "${create_data}" = 'true' ]; then
-      echo "tool4d_arguments=${tool4d_arguments}--create_data " >> $GITHUB_OUTPUT
+      echo "tool4d_arguments=${tool4d_arguments} --create_data" >> $GITHUB_OUTPUT
       fi  
       if [ "${dataless}" = 'true' ]; then
-      echo "tool4d_arguments=${tool4d_arguments}--dataless " >> $GITHUB_OUTPUT
+      echo "tool4d_arguments=${tool4d_arguments} --dataless" >> $GITHUB_OUTPUT
       fi     
       echo "tool4d_arguments=${tool4d_arguments}" >> $GITHUB_OUTPUT
     shell: bash  
@@ -56,7 +56,7 @@ runs:
   - name: execute startup method
     id: test
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments} 1>stdout.txt 2>stderr.txt
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>stdout.txt 2>stderr.txt
       echo "stdout=`cat stdout.txt`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.txt`" >> $GITHUB_OUTPUT
     shell: bash
