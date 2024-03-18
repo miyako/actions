@@ -97,9 +97,10 @@ runs:
     id: win
     if: ${{ runner.os == 'windows' }}
     run: |
-      windows_tool4d_executable_path = Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
-      windows_project_path = Join-Path -Path "$PWD" -ChildPath "$env:project_path"
-      "${windows_tool4d_executable_path}" "${windows_project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
+      $env:windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
+      $env:windows_project_path=Join-Path -Path "$PWD" -ChildPath "$env:project_path"
+      echo ("$env:windows_project_path") >> $env:GITHUB_OUTPUT 
+      echo ("$env:windows_tool4d_executable_path") >> $env:GITHUB_OUTPUT       
     shell: powershell -command "powershell . '{0}' 2>stderr.log" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
