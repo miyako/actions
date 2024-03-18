@@ -46,15 +46,23 @@ runs:
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
       skip_onstartup="--skip-onstartup"
+      else
+      skip_onstartup=""
       fi
       if [ "${create_data}" = 'true' ]; then
       create_data="--create-data"
+      else
+      create_data=""
       fi  
       if [ "${dataless}" = 'true' ]; then
       dataless="--dataless"
+      else
+      dataless=""
       fi
       if [ "${utility}" = 'true' ]; then
       utility="--utility"
+      else
+      utility=""
       fi      
       if [ "${user_param}" != '' ]; then
       user_param="${user_param}"
@@ -101,7 +109,7 @@ runs:
       $windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
       $windows_project_path=Join-Path -Path "$PWD" -ChildPath "$env:project_path"
       $windows_data=Join-Path -Path "$PWD" -ChildPath "$env:data"
-      & "$windows_tool4d_executable_path" "$windows_project_path" --startup-method="$startup_method" "$skip_onstartup" "$create_data" "$dataless" "$utility" --user-param="$user_param" --data="$windows_data"
+      & "$windows_tool4d_executable_path" "$windows_project_path" --startup-method="$startup_method" $skip_onstartup $create_data $dataless $utility --user-param="$user_param" --data="$windows_data"
       echo ("windows_project_path="+$windows_tool4d_executable_path) >> $env:GITHUB_OUTPUT 
       echo ("windows_tool4d_executable_path="+$windows_project_path) >> $env:GITHUB_OUTPUT  
       echo ("windows_data="+$windows_data) >> $env:GITHUB_OUTPUT  
