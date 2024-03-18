@@ -101,7 +101,8 @@ runs:
       $windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
       $windows_project_path=Join-Path -Path "$PWD" -ChildPath "$env:project_path"
       echo ("windows_project_path="+$windows_tool4d_executable_path) >> $env:GITHUB_OUTPUT 
-      echo ("windows_tool4d_executable_path="+$windows_project_path) >> $env:GITHUB_OUTPUT     
+      echo ("windows_tool4d_executable_path="+$windows_project_path) >> $env:GITHUB_OUTPUT    
+      "${windows_tool4d_executable_path}" "${windows_project_path}"
     shell: powershell
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
