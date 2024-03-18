@@ -89,7 +89,7 @@ runs:
       elif  [ "${TOOL4D_ARG_DATA}" != '' ]; then
       "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --data="${TOOL4D_ARG_DATA}"  
       fi
-    shell: bash -e {0} 2> >(tee stderr.log >&2)
+    shell: bash -c "bash -e {0} 2> >(tee stderr.log >&2)"
     env:
       TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
       TOOL4D_PROJECT_PATH: ${{ inputs.project_path }}  
