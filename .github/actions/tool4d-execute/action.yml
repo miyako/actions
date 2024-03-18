@@ -95,7 +95,7 @@ runs:
       
   - name: win
     id: win
-    if: ${{ runner.os == 'windows' }}
+    if: ${{ runner.os == 'windows--' }}
     run: |
       "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
     shell: powershell -command "powershell . '{0}' 2>stderr.log" 
