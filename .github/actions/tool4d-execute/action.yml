@@ -129,13 +129,13 @@ runs:
     if: ${{ runner.os == 'windows' }}
     run: |
       if("$env:create_data" -ne ""){
-      & "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
+      & "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param" 2>stderr.log
       }elseif("$env:dataless" -ne ""){
-      & "$env:tool4d_executable_path" "$env:project_path" --dataless         --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"      
+      & "$env:tool4d_executable_path" "$env:project_path" --dataless         --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param" 2>stderr.log  
       }elseif("$env:data" -ne ""){
-      & "$env:tool4d_executable_path" "$env:project_path" --data="$env:data" --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
+      & "$env:tool4d_executable_path" "$env:project_path" --data="$env:data" --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param" 2>stderr.log
       }
-    shell: powershell . '{0}' 2>stderr.log
+    shell: powershell
     env:
       tool4d_executable_path: ${{ steps.powershell.outputs.tool4d_executable_path }}
       project_path: ${{ steps.powershell.outputs.project_path }}        
