@@ -44,7 +44,7 @@ runs:
       if [ "${create_data}" != 'true' ]; then
       create_data=""
       fi  
-      if [ "${dataless}" ! 'true' ]; then
+      if [ "${dataless}" != 'true' ]; then
       dataless=""
       fi          
       echo "skip_onstartup=${skip_onstartup}" >> $GITHUB_OUTPUT
