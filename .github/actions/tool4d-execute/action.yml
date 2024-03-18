@@ -72,8 +72,9 @@ runs:
 
   - name: execute startup method
     id: test
+    if: ${{ runner.os == 'macos' }}
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}
+      `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
       echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash -c "bash -e {0} 1> >(tee stdout.log >&1) 2> >(tee stderr.log >&2)"
