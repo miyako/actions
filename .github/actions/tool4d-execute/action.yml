@@ -104,7 +104,7 @@ runs:
       echo ("windows_project_path="+$windows_tool4d_executable_path) >> $env:GITHUB_OUTPUT 
       echo ("windows_tool4d_executable_path="+$windows_project_path) >> $env:GITHUB_OUTPUT  
       echo ("windows_data="+$windows_data) >> $env:GITHUB_OUTPUT  
-      "${windows_tool4d_executable_path}" "${windows_project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${windows_data}"
+      "$windows_tool4d_executable_path" "$windows_project_path" --startup-method="$startup_method" "$skip_onstartup" "$create_data" "$dataless" "$utility" --user-param="$user_param" --data="$windows_data"
     shell: powershell
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
