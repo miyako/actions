@@ -102,7 +102,7 @@ runs:
       `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
       echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
-    shell: pwsh -command "pwsh . '{0}' 2>&2 | Tee-Object 'stderr.log'" 
+    shell: powershell -command "powershell . '{0}' 2>&1 | Tee-Object 'stderr.log'" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
