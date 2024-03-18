@@ -126,7 +126,7 @@ runs:
       
   - name: win
     id: win
-    if: ${{ runner.os == 'windows!' }}
+    if: ${{ runner.os == 'windows' }}
     run: |
       if($env:create_data -ne ""){
       "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
