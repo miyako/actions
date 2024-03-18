@@ -30,27 +30,27 @@ runs:
   steps:
 
   - name: setup 
-      run: |
-        arguments=""
-        if [ "${startup_method}" != '' ]; then
-        arguments="${arguments} --startup_method="\""${startup_method}"\"
-        fi
-        if [ "${skip_onstartup}" = 'true' ]; then
-        arguments="${arguments} --skip_onstartup"
-        fi
-        if [ "${create_data}" = 'true' ]; then
-        arguments="${arguments} --create_data"
-        fi  
-        if [ "${dataless}" = 'true' ]; then
-        arguments="${arguments} --dataless"
-        fi          
-        echo ("arguments=${arguments}") >> $env:GITHUB_OUTPUT
-      shell: bash  
-      env:
-        startup_method: ${{ inputs.startup_method }}
-        skip_onstartup: ${{ inputs.skip_onstartup }}
-        create_data: ${{ inputs.create_data }}
-        dataless: ${{ inputs.dataless }}
+    run: |
+      arguments=""
+      if [ "${startup_method}" != '' ]; then
+      arguments="${arguments} --startup_method="\""${startup_method}"\"
+      fi
+      if [ "${skip_onstartup}" = 'true' ]; then
+      arguments="${arguments} --skip_onstartup"
+      fi
+      if [ "${create_data}" = 'true' ]; then
+      arguments="${arguments} --create_data"
+      fi  
+      if [ "${dataless}" = 'true' ]; then
+      arguments="${arguments} --dataless"
+      fi          
+      echo ("arguments=${arguments}") >> $env:GITHUB_OUTPUT
+    shell: bash  
+    env:
+      startup_method: ${{ inputs.startup_method }}
+      skip_onstartup: ${{ inputs.skip_onstartup }}
+      create_data: ${{ inputs.create_data }}
+      dataless: ${{ inputs.dataless }}
 
   - name: execute startup method
     id: test
