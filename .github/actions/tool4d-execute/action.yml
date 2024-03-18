@@ -81,7 +81,6 @@ runs:
     if: ${{ runner.os == 'macos' }}
     run: |
       "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
-      echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash -c "bash -e {0} 2>stderr.log"
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
@@ -99,7 +98,6 @@ runs:
     if: ${{ runner.os == 'windows' }}
     run: |
       "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
-      echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: powershell -command "powershell . '{0}' 2>stderr.log" 
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
@@ -115,9 +113,5 @@ runs:
   - name: test
     id: test     
     run: |
-      echo "stdout=${stdout}" >> $GITHUB_OUTPUT
-      echo "stderr=${stderr}" >> $GITHUB_OUTPUT
-    shell: bash
-    env:
-      stdout: ${{ steps.mac.outputs.stdout }}  
-      stderr: ${{ steps.mac.outputs.stderr }}     
+      echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
+    shell: bash 
