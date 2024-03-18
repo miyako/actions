@@ -98,8 +98,8 @@ runs:
     if: ${{ runner.os == 'windows' }}
     run: |
       chcp 65001 #set code page to utf-8
-      windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
-      windows_project_path=Join-Path -Path "$PWD" -ChildPath "$env:project_path"
+      $windows_tool4d_executable_path=Join-Path -Path "$PWD" -ChildPath "$env:tool4d_executable_path"
+      $windows_project_path=Join-Path -Path "$PWD" -ChildPath "$env:project_path"
       echo ("windows_project_path="+$windows_tool4d_executable_path) >> $env:GITHUB_OUTPUT 
       echo ("windows_tool4d_executable_path="+$windows_project_path) >> $env:GITHUB_OUTPUT     
     shell: powershell
