@@ -77,7 +77,7 @@ runs:
       ls .
       echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
-    shell: bash -c "bash -e {0} > >(tee -a stdout.log) 2> >(tee -a stderr.log >&2)"
+    shell: bash -e {0} > >(tee -a stdout.log) 2> >(tee -a stderr.log >&2)
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
