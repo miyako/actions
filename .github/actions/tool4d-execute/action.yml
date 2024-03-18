@@ -58,8 +58,8 @@ runs:
       create_data: ${{ inputs.create_data }}
       dataless: ${{ inputs.dataless }}
 
-  - name: mac
-    if: ${{ runner.os == 'macosxxx' }}
+  - name: tool
+    if: ${{ runner.os == '' }} # this only works on macos
     run: |
       if [ "${TOOL4D_ARG_CREATE_DATA}" != '' ]; then
       "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data
@@ -79,8 +79,7 @@ runs:
       TOOL4D_ARG_CREATE_DATA: ${{ steps.setup.outputs.create_data }}
       TOOL4D_ARG_DATALESS: ${{ steps.setup.outputs.dataless }}
       
-  - name: windows
-    if: ${{ runner.os != 'windowsxxx' }}
+  - name: tool
     run: |
       if [ "${TOOL4D_ARG_CREATE_DATA}" != '' ]; then
       "${TOOL4D_EXECUTABLE_PATH}" "${TOOL4D_PROJECT_PATH}" --startup-method="${TOOL4D_PROJECT_STARTUP_METHOD}" "${TOOL4D_ARG_SKIP_ONSTARTUP}" --user-param="${TOOL4D_ARG_USER_PARAM}" --create-data 2>stderr.log
