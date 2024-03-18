@@ -70,8 +70,8 @@ runs:
       create_data: ${{ inputs.create_data }}
       dataless: ${{ inputs.dataless }}
 
-  - name: execute startup method
-    id: test
+  - name: mac
+    id: mac
     if: ${{ runner.os == 'macos' }}
     run: |
       `"${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${tool4d_arguments}`
@@ -81,4 +81,14 @@ runs:
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
-      project_path: ${{ inputs.project_path }}          
+      project_path: ${{ inputs.project_path }}        
+
+   - name: test
+    id: test     
+    run: |
+      echo "stdout=${stdout}" >> $GITHUB_OUTPUT
+      echo "stderr=${stderr}" >> $GITHUB_OUTPUT
+    shell: bash
+    env:
+      stdout: ${{ steps.mac.outputs.stdout }}  
+      stderr: ${{ steps.mac.outputs.stderr }}     
