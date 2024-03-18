@@ -1,9 +1,12 @@
 name: Run Tests
 description: Run unit tests
 inputs:
-  project_path:
+  tool4d_executable_path:
     required: true
     type: string
+  project_path:
+    required: true
+    type: string    
   startup_method: 
     required: false
     type: string
@@ -13,7 +16,7 @@ inputs:
   create_data: 
     required: false
     type: boolean
-  create_data: 
+  dataless: 
     dataless: false
     type: boolean
 outputs:
@@ -21,3 +24,43 @@ outputs:
     value: ${{ steps.test.outputs.stdout }}
   stderr: 
     value: ${{ steps.test.outputs.stderr }}  
+
+runs:
+  using: "composite"
+  steps:
+
+  - name: setup 
+      run: |
+        arguments=""
+        if [ "${startup_method}" != '' ]; then
+        arguments="${arguments} --startup_method="\""${startup_method}"\"
+        fi
+        if [ "${skip_onstartup}" = 'true' ]; then
+        arguments="${arguments} --skip_onstartup"
+        fi
+        if [ "${create_data}" = 'true' ]; then
+        arguments="${arguments} --create_data"
+        fi  
+        if [ "${dataless}" = 'true' ]; then
+        arguments="${arguments} --dataless"
+        fi          
+        echo ("arguments=${arguments}") >> $env:GITHUB_OUTPUT
+      shell: bash  
+      env:
+        startup_method: ${{ inputs.startup_method }}
+        skip_onstartup: ${{ inputs.skip_onstartup }}
+        create_data: ${{ inputs.create_data }}
+        dataless: ${{ inputs.dataless }}
+
+  - name: execute startup method
+    id: test
+    run: |
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" ${arguments} 1>stdout.txt 2>stderr.txt
+      echo ("stdout=`cat stdout.txt`") >> $env:GITHUB_OUTPUT
+      echo ("stderr=`cat stderr.txt`") >> $env:GITHUB_OUTPUT
+    shell: bash
+    env:
+      tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
+      arguments: ${{ steps.setup.outputs.arguments }}
+      project_path: ${{ inputs.project_path }}        
+        
