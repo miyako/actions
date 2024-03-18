@@ -128,12 +128,12 @@ runs:
     id: win
     if: ${{ runner.os == 'windows' }}
     run: |
-      if($env:create_data -ne ""){
-      "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
-      }elseif($env:dataless -ne ""){
-      "$env:tool4d_executable_path" "$env:project_path" --dataless         --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"      
-      }elseif($env:data -ne ""){
-      "$env:tool4d_executable_path" "$env:project_path" --data="$env:data" --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
+      if("$env:create_data" -ne ""){
+      & "$env:tool4d_executable_path" "$env:project_path" --create-data      --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
+      }elseif("$env:dataless" -ne ""){
+      & "$env:tool4d_executable_path" "$env:project_path" --dataless         --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"      
+      }elseif("$env:data" -ne ""){
+      & "$env:tool4d_executable_path" "$env:project_path" --data="$env:data" --startup-method="$env:startup_method" "$env:skip_onstartup" "$env:utility" --user-param="$env:user_param"
       }
     shell: powershell 
     env:
