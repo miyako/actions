@@ -83,7 +83,7 @@ runs:
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
       project_path: ${{ inputs.project_path }}        
 
-   - name: test
+  - name: test
     id: test     
     run: |
       echo "stdout=${stdout}" >> $GITHUB_OUTPUT
