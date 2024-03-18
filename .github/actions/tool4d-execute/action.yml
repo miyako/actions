@@ -88,7 +88,13 @@ runs:
     id: mac
     if: ${{ runner.os == 'macos' }}
     run: |
-      "${tool4d_executable_path}" "${project_path}" --startup-method="${startup_method}" "${skip_onstartup}" "${create_data}" "${dataless}" "${utility}" --user-param="${user_param}" --data="${data}"
+      if [ "${create_data}" != '' ]
+      "${tool4d_executable_path}" "${project_path}" --create-data    --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"
+      elif  [ "${dataless}" != '' ]
+      "${tool4d_executable_path}" "${project_path}" --dataless       --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"   
+      elif [ "${data}" != '' ]
+      "${tool4d_executable_path}" "${project_path}" --data="${data}" --startup-method="${startup_method}" "${skip_onstartup}" "${utility}" --user-param="${user_param}"         
+      fi
     shell: bash -c "bash -e {0} 2>stderr.log"
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
