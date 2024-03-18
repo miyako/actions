@@ -43,8 +43,8 @@ runs:
       fi  
       if [ "${dataless}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --dataless"
-      fi          
-      echo ("tool4d_arguments=${tool4d_arguments}") >> $GITHUB_OUTPUT
+      fi     
+      echo (${tool4d_arguments}) >> $GITHUB_OUTPUT
     shell: bash  
     env:
       startup_method: ${{ inputs.startup_method }}
