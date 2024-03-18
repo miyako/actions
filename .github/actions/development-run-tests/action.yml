@@ -33,7 +33,7 @@ runs:
     run: |
       tool4d_arguments=""
       if [ "${startup_method}" != '' ]; then
-      tool4d_arguments="${tool4d_arguments} --startup_method="\""${startup_method}"\"
+      tool4d_arguments="${tool4d_arguments} --startup_method=${startup_method}"
       fi
       if [ "${skip_onstartup}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --skip_onstartup"
@@ -44,7 +44,7 @@ runs:
       if [ "${dataless}" = 'true' ]; then
       tool4d_arguments="${tool4d_arguments} --dataless"
       fi     
-      echo (${tool4d_arguments}) >> $GITHUB_OUTPUT
+      echo "tool4d_arguments=${tool4d_arguments}" >> $GITHUB_OUTPUT
     shell: bash  
     env:
       startup_method: ${{ inputs.startup_method }}
