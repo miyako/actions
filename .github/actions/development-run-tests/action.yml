@@ -33,9 +33,9 @@ runs:
     id: setup
     run: |
       tool4d_arguments=""
-      if [ "${startup_method}" != '' ]; then
+     # if [ "${startup_method}" != '' ]; then
       echo "tool4d_arguments=--startup_method="+"\""+"${startup_method}"+"\"" >> $GITHUB_OUTPUT
-      fi
+     # fi
       if [ "${skip_onstartup}" = 'true' ]; then
       echo "tool4d_arguments=${tool4d_arguments} --skip_onstartup" >> $GITHUB_OUTPUT
       fi
@@ -56,12 +56,11 @@ runs:
   - name: execute startup method
     id: test
     run: |
-      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>stdout.txt 2>stderr.txt
+      "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --dataless 1>$${project_path}/../stdout.txt 2>${project_path}/../stderr.txt
       echo "stdout=`cat stdout.txt`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.txt`" >> $GITHUB_OUTPUT
     shell: bash
     env:
       tool4d_executable_path: ${{ inputs.tool4d_executable_path }}
       tool4d_arguments: ${{ steps.setup.outputs.tool4d_arguments }}
-      project_path: ${{ inputs.project_path }}        
-        
+      project_path: ${{ inputs.project_path }}          
