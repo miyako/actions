@@ -147,10 +147,21 @@ runs:
       utility: ${{ steps.setup.outputs.utility }}
       user_param: ${{ steps.setup.outputs.user_param }}
 
-  - name: dataless, skip onstartup
+  - name: macos
+    if: ${{ runner.os == 'macos' }}
     run: |
-        "${TOOL4D_EXECUTABLE_PATH}" "${PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless --skip-onstartup
+      "${TOOL4D_EXECUTABLE_PATH}" "${PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless
     shell: bash -c "bash -e {0} 2>stderr.log"
+    env:
+      TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
+      PROJECT_PATH: ${{ inputs.project_path }}  
+      PROJECT_STARTUP_METHOD: ${{ inputs.startup_method }}  
+
+  - name: windows
+    if: ${{ runner.os == 'windows' }}
+    run: |
+      "${TOOL4D_EXECUTABLE_PATH}" "${PROJECT_PATH}" --startup-method="${PROJECT_STARTUP_METHOD}" --dataless
+    shell: bash
     env:
       TOOL4D_EXECUTABLE_PATH: ${{ inputs.tool4d_executable_path }}
       PROJECT_PATH: ${{ inputs.project_path }}  
