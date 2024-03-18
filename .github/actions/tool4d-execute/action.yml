@@ -74,7 +74,7 @@ runs:
     id: test
     run: |
       "${TOOL4D_EXECUTABLE_PATH}" "${project_path}" --create-data --startup-method=start --skip-onstartup
-      ls .
+      echo "stdout=`cat stdout.log`" >> $GITHUB_OUTPUT
       echo "stderr=`cat stderr.log`" >> $GITHUB_OUTPUT
     shell: bash -c "bash -e {0} 1> >(tee stdout.log >&1) 2> >(tee stderr.log >&2)"
     env:
