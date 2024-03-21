@@ -89,8 +89,8 @@ runs:
         echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
       shell: bash  
       
-    - name: check platform macos  
-      if: ${{ env.platform == 'macos' }}
+    - name: macos (20.2) 
+      if: ${{ env.platform == 'macos' && inputs.version == '20.2' }}
       run: |          
         echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_${TOOL4D_VERSION}_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
       shell: bash
@@ -98,6 +98,16 @@ runs:
         TOOL4D_BRANCH: ${{ inputs.branch }}
         TOOL4D_VERSION: ${{ inputs.version }}
         TOOL4D_BUILD: ${{ inputs.build }} 
+
+        - name: macos
+      if: ${{ env.platform == 'macos' && inputs.version != '20.2' }}
+      run: |          
+        echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
+      shell: bash
+      env:
+        TOOL4D_BRANCH: ${{ inputs.branch }}
+        TOOL4D_VERSION: ${{ inputs.version }}
+        TOOL4D_BUILD: ${{ inputs.build }}     
 
     - name: download tool4d
       if: ${{ env.platform }}
