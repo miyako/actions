@@ -88,7 +88,7 @@ runs:
       if: ${{ (env.platform == 'macos') && (inputs.arch != 'arm') }}
       run: |
         echo "TOOL4D_PLATFORM=mac" >> $GITHUB_ENV
-        echo "TOOL4D_SUFFIX=_x86" >> $GITHUB_ENV # github macos vm runs on intel 
+        echo "TOOL4D_SUFFIX=_x86_64" >> $GITHUB_ENV # github macos vm runs on intel 
         echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
       shell: bash 
       
@@ -96,7 +96,7 @@ runs:
       if: ${{ (env.platform == 'macos') && (inputs.arch == 'arm') }}
       run: |
         echo "TOOL4D_PLATFORM=mac" >> $GITHUB_ENV
-        echo "TOOL4D_SUFFIX=_arm" >> $GITHUB_ENV # github macos vm runs on intel 
+        echo "TOOL4D_SUFFIX=_arm64" >> $GITHUB_ENV # github macos vm runs on intel 
         echo "TOOL4D_EXECUTABLE_PATH=tool4d.app/Contents/MacOS/tool4d" >> $GITHUB_ENV 
       shell: bash  
       
