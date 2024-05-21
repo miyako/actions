@@ -113,7 +113,7 @@ runs:
     - name: macos
       if: ${{ env.platform == 'macos' && inputs.version != '20.2' }}
       run: |          
-        echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d_${TOOL4D_PLATFORM}${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
+        echo "TOOL4D_DOWNLOAD_URL=${TOOL4D_URL}${TOOL4D_BRANCH}/${TOOL4D_VERSION}/${TOOL4D_BUILD}/${TOOL4D_PLATFORM}/tool4d${TOOL4D_SUFFIX}.tar.xz" >> $GITHUB_ENV
       shell: bash
       env:
         TOOL4D_BRANCH: ${{ inputs.branch }}
