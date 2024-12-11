@@ -52,10 +52,14 @@ runs:
       run: |
         IFS=$'\n'; set -f
         for f in $(find "${product_path}" -type f \( -perm +111 -o -name "*.dylib" -o -name "*.js" -o -name "*.json" -o -name "*.html" -o -name "*.so" \) | sort -r )
-        do codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain} --entitlements "${entitlements_path}" "${f}"; 
+        do 
+        xattr -c "${f}"; 
+        codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain} --entitlements "${entitlements_path}" "${f}"; 
         done
         for f in $(find "${product_path}" -type d \( -name "*.app" -o -name "*.framework" -o -name "*.bundle"  -o -name "*.plugin" -o -name "*.kext" \) | sort -r )
-        do codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain} --entitlements "${entitlements_path}" "${f}"; 
+        do 
+        xattr -c "${f}"; 
+        codesign --verbose --options=runtime --timestamp --force --sign "${sign}" --keychain ${keychain} --entitlements "${entitlements_path}" "${f}"; 
         done
         unset IFS; set +f
       shell: bash  
